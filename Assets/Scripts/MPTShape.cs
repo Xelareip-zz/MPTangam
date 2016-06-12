@@ -21,12 +21,19 @@ public class MPTShape : MonoBehaviour
 {
     public Sprite mainSprite;
     public PolygonCollider2D polygonCollider;
+    public MPTDraggable draggable;
     private float width;
     private float height;
     private int[,] miniTriangles;
+    public bool isOnGrid;
+    public bool canDrop;
 
     void Start()
     {
+        draggable = GetComponent<MPTDraggable>();
+        draggable.beenDragged += AfterDrag;
+        draggable.beenDropped += AfterDrop;
+
         mainSprite = GetComponent<SpriteRenderer>().sprite;
         width = mainSprite.bounds.extents.x;
         height = mainSprite.bounds.extents.y;
@@ -100,6 +107,83 @@ public class MPTShape : MonoBehaviour
                 }
             }
         }
+
+        MPTShapeManager.Instance.RegisterShape(this);
         //polygonCollider.points;
+    }
+
+    void Update()
+    {
+        if (MPTGrid.Instance != null && MPTGrid.Instance.coll.IsTouching(polygonCollider))
+        {
+            isOnGrid = true;
+        }
+        else
+        {
+            isOnGrid = false;
+        }
+
+        canDrop = true;
+        foreach (MPTShape current in MPTShapeManager.Instance.listOfShapes)
+        {
+            if (current == this)
+            {
+                continue;
+            }
+            else
+            {
+                if (current.polygonCollider.IsTouching(polygonCollider))
+                {
+                    canDrop = false;
+                    break;
+                }
+            }
+        }
+    }/*
+
+    void OnTriggerEnter2D(Collider2D coll)
+    {
+        if (coll.tag == "Grid")
+        {
+            isOnGrid = true;
+        }
+        else if (coll.tag == "Shape")
+        {
+            ++canDrop;
+        }
+    }
+
+    void OnTriggerExit2D(Collider2D coll)
+    {
+        if (coll.tag == "Grid")
+        {
+            isOnGrid = false;
+        }
+        else if (coll.tag == "Shape")
+        {
+            --canDrop;
+        }
+    }*/
+
+    public void AfterDrag()
+    {
+        if (isOnGrid)
+        {
+            transform.position = new Vector3(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.y), transform.position.z);
+        }
+    }
+
+    public void AfterDrop()
+    {
+        if (isOnGrid && canDrop)
+        {
+            Destroy(draggable);
+
+            MPTSpawner.Instance.SpawnNew();
+        }
+        else
+        {
+            transform.localPosition = Vector3.zero;
+        }
     }
 }

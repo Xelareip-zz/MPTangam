@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System;
 
 [RequireComponent(typeof(Collider2D))]
 public class MPTDraggable : MonoBehaviour
@@ -7,6 +7,9 @@ public class MPTDraggable : MonoBehaviour
     public bool currentlyDragged;
     private Vector3 initialPos;
     private Collider2D coll;
+
+    public event Action beenDragged;
+    public event Action beenDropped;
 
     void Start()
     {
@@ -42,6 +45,13 @@ public class MPTDraggable : MonoBehaviour
 
         if (position == initPosition)
         {
+            if (currentlyDragged)
+            {
+                if (beenDragged != null)
+                {
+                    beenDropped();
+                }
+            }
             currentlyDragged = false;
             return;
         }
@@ -59,6 +69,11 @@ public class MPTDraggable : MonoBehaviour
         if (currentlyDragged)
         {
             transform.position = new Vector3(position.x, position.y, 0.0f);
+        }
+
+        if (beenDragged != null)
+        {
+            beenDragged();
         }
     }
 }
