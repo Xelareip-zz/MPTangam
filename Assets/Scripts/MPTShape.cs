@@ -34,7 +34,7 @@ public class MPTShape : MonoBehaviour
         draggable = GetComponent<MPTDraggable>();
         draggable.beenDragged += AfterDrag;
         draggable.beenDropped += AfterDrop;
-
+        /*
         mainSprite = GetComponent<SpriteRenderer>().sprite;
         width = mainSprite.bounds.extents.x;
         height = mainSprite.bounds.extents.y;
@@ -107,7 +107,7 @@ public class MPTShape : MonoBehaviour
                     break;
                 }
             }
-        }
+        }*/
 
         MPTShapeManager.Instance.RegisterShape(this);
         //polygonCollider.points;

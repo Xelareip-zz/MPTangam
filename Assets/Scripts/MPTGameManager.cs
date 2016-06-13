@@ -25,7 +25,6 @@ public class MPTGameManager : MonoBehaviour
     public void ShapeConsumed(MPTShape shape)
     {
         ++score;
-
-        scoreText.text = "" + score;
+        scoreText.text = "Score : " + score;
     }
 }

@@ -26,8 +26,8 @@ public class MPTGrid : MonoBehaviour
 
     public void ShapeDropped(MPTShape shape)
     {
-        float xStart = transform.position.x - width / 2 + 0.5f;
-        float yStart = transform.position.y + height / 2 - 0.25f;
+        float xStart = transform.position.x - width / 2.0f + 0.5f;
+        float yStart = transform.position.y + height / 2.0f - 0.25f;
 
         int miniTrianglesCount = 0;
 
@@ -35,7 +35,7 @@ public class MPTGrid : MonoBehaviour
         {
             for (int shapeY = 0; shapeY < height * 2; ++shapeY)
             {
-                Vector2 point = new Vector2(xStart + shapeX, yStart + shapeY * 0.5f);
+                Vector2 point = new Vector2(xStart + shapeX, yStart - shapeY * 0.5f);
                 if (shape.polygonCollider.OverlapPoint(point))
                 {
                     shapesTab[shapeY, shapeX] = shape;
@@ -52,15 +52,19 @@ public class MPTGrid : MonoBehaviour
         {
             for (int yNW = 0; yNW < height; ++yNW)
             {
-                for (int squareSize = 1; squareSize < width; ++squareSize)
+                for (int squareSize = 1; squareSize < width - xNW && squareSize < height - yNW; ++squareSize)
                 {
+                    if (xNW == 0 && yNW == 0 && squareSize == 2)
+                    {
+                        Debug.Log("Break");
+                    }
                     bool brokenSquare = false;
                     Dictionary<MPTShape, int> shapeToCount = new Dictionary<MPTShape, int>();
                     for (int squareX = 0; squareX < squareSize; ++squareX)
                     {
                         for (int squareY = 0; squareY < squareSize; ++squareY)
                         {
-                            Vector2 miniSquarePos = new Vector2(squareX + xNW, squareY + yNW);
+                            Vector2 miniSquarePos = new Vector2(xNW + squareX, yNW + squareY);
                             if (shapesTab[(int)miniSquarePos.y * 2, (int)miniSquarePos.x] == null || shapesTab[(int)miniSquarePos.y * 2 + 1, (int)miniSquarePos.x] == null)
                             {
                                 brokenSquare = true;
@@ -97,7 +101,7 @@ public class MPTGrid : MonoBehaviour
                     }
                     if (brokenSquare)
                     {
-                        continue;
+                        break;
                     }
                     squares.Add(new List<MPTShape>());
                     foreach (KeyValuePair<MPTShape, int> kvp in shapeToCount)
