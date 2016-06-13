@@ -27,6 +27,7 @@ public class MPTShape : MonoBehaviour
     private int[,] miniTriangles;
     public bool isOnGrid;
     public bool canDrop;
+    public int miniTrianglesCount;
 
     void Start()
     {
@@ -180,10 +181,18 @@ public class MPTShape : MonoBehaviour
             Destroy(draggable);
 
             MPTSpawner.Instance.SpawnNew();
+            MPTGrid.Instance.ShapeDropped(this);
         }
         else
         {
             transform.localPosition = Vector3.zero;
         }
+    }
+
+    public void Consume()
+    {
+        MPTGameManager.Instance.ShapeConsumed(this);
+        MPTShapeManager.Instance.UnregisterShape(this);
+        Destroy(gameObject);
     }
 }
