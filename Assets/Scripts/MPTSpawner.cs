@@ -26,6 +26,5 @@ public class MPTSpawner : MonoBehaviour
         GameObject go = Instantiate<GameObject>(spawnables[newSpawnId]);
         go.transform.SetParent(transform);
         go.transform.localPosition = Vector3.zero;
-        go.transform.localRotation = Quaternion.identity;
     }
 }
