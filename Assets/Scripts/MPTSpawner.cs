@@ -17,11 +17,12 @@ public class MPTSpawner : MonoBehaviour
     void Start()
     {
         instance = this;
+        SpawnNew();
     }
 
     public void SpawnNew()
     {
-        int newSpawnId = Random.Range(0, spawnables.Count - 1);
+        int newSpawnId = Random.Range(0, spawnables.Count);
 
         GameObject go = Instantiate<GameObject>(spawnables[newSpawnId]);
         go.transform.SetParent(transform);
