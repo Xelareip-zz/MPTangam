@@ -116,8 +116,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   coll: {fileID: 0}
-  width: 10
-  height: 15
+  width: 7
+  height: 10
 --- !u!4 &586460347
 Transform:
   m_ObjectHideFlags: 0
@@ -171,9 +171,9 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_UsedByEffector: 0
-  m_Offset: {x: 0.015602112, y: -0.013539314}
+  m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Size: {x: 10.667906, y: 15.238247}
+  m_Size: {x: 7, y: 10}
 --- !u!50 &586460350
 Rigidbody2D:
   serializedVersion: 2
