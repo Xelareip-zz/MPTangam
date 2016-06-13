@@ -221,6 +221,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnables:
   - {fileID: 152550, guid: 0cd78f8b39320c54484c0ddc9ce1d800, type: 2}
+  - {fileID: 190052, guid: 56a447e4c98df483dbc64488cc41659f, type: 2}
+  - {fileID: 130922, guid: 6624e9cef4fc44ce78b3beb462eb798f, type: 2}
+  - {fileID: 103614, guid: 548cd5b9038ab4d0bafbdb2272c7d57a, type: 2}
 --- !u!4 &704424568
 Transform:
   m_ObjectHideFlags: 0
