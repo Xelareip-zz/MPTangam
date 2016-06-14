@@ -26,6 +26,7 @@ public class MPTShape : MonoBehaviour
     private float height;
     private int[,] miniTriangles;
     public bool isOnGrid;
+    public bool isFullyInGrid;
     public bool canDrop;
     public int miniTrianglesCount;
 
@@ -172,14 +173,24 @@ public class MPTShape : MonoBehaviour
         {
             transform.position = new Vector3(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.y), transform.position.z);
         }
+
+        isFullyInGrid = true;
+        foreach (Vector2 point in polygonCollider.points)
+        {
+            if (MPTGrid.Instance.coll.OverlapPoint(point + new Vector2(transform.position.x, transform.position.y)) == false)
+            {
+                isFullyInGrid = false;
+                break;
+            }
+        }
     }
 
     public void AfterDrop()
     {
-        if (isOnGrid && canDrop)
+        if (isOnGrid && isFullyInGrid && canDrop)
         {
             Destroy(draggable);
-
+            
             MPTSpawner.Instance.SpawnNew();
             MPTGrid.Instance.ShapeDropped(this);
         }
