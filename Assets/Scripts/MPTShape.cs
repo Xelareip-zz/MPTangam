@@ -22,6 +22,8 @@ public class MPTShape : MonoBehaviour
     public Sprite mainSprite;
     public PolygonCollider2D polygonCollider;
     public MPTDraggable draggable;
+    public float weight;
+
     private float width;
     private float height;
     private int[,] miniTriangles;

@@ -13,18 +13,38 @@ public class MPTSpawner : MonoBehaviour
     }
 
     public List<GameObject> spawnables;
+    private float totalWeights;
 
     void Start()
     {
         instance = this;
+        totalWeights = 0;
+        foreach (GameObject go in spawnables)
+        {
+            MPTShape shape = go.GetComponent<MPTShape>();
+            totalWeights += shape.weight;
+        }
         SpawnNew();
     }
 
     public void SpawnNew()
     {
-        int newSpawnId = Random.Range(0, spawnables.Count);
+        float newSpawnRand = Random.Range(0.0f, totalWeights);
+        
+        GameObject selectedGO = null;
 
-        GameObject go = Instantiate<GameObject>(spawnables[newSpawnId]);
+        foreach (GameObject currentGo in spawnables)
+        {
+            MPTShape shape = currentGo.GetComponent<MPTShape>();
+            newSpawnRand -= shape.weight;
+            if (newSpawnRand <= 0.0f)
+            {
+                selectedGO = currentGo;
+                break;
+            }
+        }
+
+        GameObject go = Instantiate<GameObject>(selectedGO);
         go.transform.SetParent(transform);
         go.transform.localPosition = Vector3.zero;
     }
