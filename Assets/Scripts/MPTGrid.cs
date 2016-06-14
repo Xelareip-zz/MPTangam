@@ -54,10 +54,6 @@ public class MPTGrid : MonoBehaviour
             {
                 for (int squareSize = 1; squareSize < width - xNW && squareSize < height - yNW; ++squareSize)
                 {
-                    if (xNW == 0 && yNW == 0 && squareSize == 2)
-                    {
-                        Debug.Log("Break");
-                    }
                     bool brokenSquare = false;
                     Dictionary<MPTShape, int> shapeToCount = new Dictionary<MPTShape, int>();
                     for (int squareX = 0; squareX < squareSize; ++squareX)
