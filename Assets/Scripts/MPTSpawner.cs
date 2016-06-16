@@ -18,17 +18,23 @@ public class MPTSpawner : MonoBehaviour
     void Start()
     {
         instance = this;
+        UpdateWeights();
+        SpawnNew();
+    }
+
+    private void UpdateWeights()
+    {
         totalWeights = 0;
         foreach (GameObject go in spawnables)
         {
             MPTShape shape = go.GetComponent<MPTShape>();
             totalWeights += shape.weight;
         }
-        SpawnNew();
     }
 
     public void SpawnNew()
     {
+        UpdateWeights();
         float newSpawnRand = Random.Range(0.0f, totalWeights);
         
         GameObject selectedGO = null;

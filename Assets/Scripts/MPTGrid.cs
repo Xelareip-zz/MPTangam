@@ -24,6 +24,17 @@ public class MPTGrid : MonoBehaviour
         shapesTab = new MPTShape[height * 2, width];
     }
 
+    public void ResetGrid()
+    {
+        for (int i = 0; i < width; ++i)
+        {
+            for (int j = 0; j < height * 2; ++j)
+            {
+                shapesTab[j, i] = null;
+            }
+        }
+    }
+
     public void ShapeDropped(MPTShape shape)
     {
         float xStart = transform.position.x - width / 2.0f + 0.5f;
