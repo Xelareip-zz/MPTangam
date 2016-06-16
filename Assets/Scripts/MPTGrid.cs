@@ -52,7 +52,7 @@ public class MPTGrid : MonoBehaviour
         {
             for (int yNW = 0; yNW < height; ++yNW)
             {
-                for (int squareSize = 1; squareSize < width - xNW && squareSize < height - yNW; ++squareSize)
+                for (int squareSize = 1; squareSize < width - xNW + 1 && squareSize < height - yNW + 1; ++squareSize)
                 {
                     bool brokenSquare = false;
                     Dictionary<MPTShape, int> shapeToCount = new Dictionary<MPTShape, int>();
