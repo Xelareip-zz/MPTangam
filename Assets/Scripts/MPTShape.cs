@@ -179,7 +179,13 @@ public class MPTShape : MonoBehaviour
         isFullyInGrid = true;
         foreach (Vector2 point in polygonCollider.points)
         {
-            if (MPTGrid.Instance.coll.OverlapPoint(point + new Vector2(transform.position.x, transform.position.y)) == false)
+            Vector2 localPos = transform.rotation * new Vector2(
+                (polygonCollider.offset.x + point.x) * transform.localScale.x,
+                (polygonCollider.offset.y + point.y) * transform.localScale.y);
+            Vector2 worldPointPos = new Vector2(
+                transform.position.x,
+                transform.position.y) + localPos;
+            if (MPTGrid.Instance.coll.OverlapPoint(worldPointPos) == false)
             {
                 isFullyInGrid = false;
                 break;
