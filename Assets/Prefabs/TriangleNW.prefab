@@ -27,7 +27,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 190052}
   m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071067}
-  m_LocalPosition: {x: 0.018145949, y: 6.4496465, z: 5.3564453}
+  m_LocalPosition: {x: 1.0417936, y: 1.597089, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -60,7 +60,7 @@ PolygonCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_UsedByEffector: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -1, y: -1}
   m_Points:
     m_Paths:
     - - {x: -0.891877, y: 0.9658558}
@@ -92,7 +92,9 @@ MonoBehaviour:
   mainSprite: {fileID: 0}
   polygonCollider: {fileID: 6091918}
   draggable: {fileID: 0}
+  weight: 3
   isOnGrid: 0
+  isFullyInGrid: 0
   canDrop: 0
   miniTrianglesCount: 0
 --- !u!212 &21242914
