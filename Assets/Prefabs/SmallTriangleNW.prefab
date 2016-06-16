@@ -80,7 +80,7 @@ MonoBehaviour:
   mainSprite: {fileID: 0}
   polygonCollider: {fileID: 6091056}
   draggable: {fileID: 0}
-  weight: 3
+  weight: 0
   isOnGrid: 0
   isFullyInGrid: 0
   canDrop: 0
