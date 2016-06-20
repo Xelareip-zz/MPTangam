@@ -34,6 +34,8 @@ public class MPTGameManager : MonoBehaviour
 
     public void Restart()
     {
+        score = 0;
+        scoreText.text = "Score : " + score;
         MPTGrid.Instance.ResetGrid();
         foreach(MPTShape shape in MPTShapeManager.Instance.listOfShapes)
         {

@@ -126,7 +126,11 @@ public class MPTShape : MonoBehaviour
         {
             isOnGrid = false;
         }
+        CheckCanDrop();
+    }
 
+    private void CheckCanDrop()
+    {
         canDrop = true;
         foreach (MPTShape current in MPTShapeManager.Instance.listOfShapes)
         {
@@ -143,31 +147,7 @@ public class MPTShape : MonoBehaviour
                 }
             }
         }
-    }/*
-
-    void OnTriggerEnter2D(Collider2D coll)
-    {
-        if (coll.tag == "Grid")
-        {
-            isOnGrid = true;
-        }
-        else if (coll.tag == "Shape")
-        {
-            ++canDrop;
-        }
     }
-
-    void OnTriggerExit2D(Collider2D coll)
-    {
-        if (coll.tag == "Grid")
-        {
-            isOnGrid = false;
-        }
-        else if (coll.tag == "Shape")
-        {
-            --canDrop;
-        }
-    }*/
 
     public void AfterDrag()
     {
@@ -195,6 +175,7 @@ public class MPTShape : MonoBehaviour
 
     public void AfterDrop()
     {
+        CheckCanDrop();
         if (isOnGrid && isFullyInGrid && canDrop)
         {
             Destroy(draggable);
