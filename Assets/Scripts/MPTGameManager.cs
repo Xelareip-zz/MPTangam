@@ -29,7 +29,20 @@ public class MPTGameManager : MonoBehaviour
     public void ShapeConsumed(MPTShape shape)
     {
         ++score;
+    }
+
+    public void UpdateScoreText()
+    {
         scoreText.text = "Score : " + score;
+    }
+
+    public void TrashShape()
+    {
+        --score;
+        UpdateScoreText();
+        MPTShapeManager.Instance.UnregisterShape(MPTSpawner.Instance.currentShape);
+        Destroy(MPTSpawner.Instance.currentShape.gameObject);
+        MPTSpawner.Instance.SpawnNew();
     }
 
     public void Restart()
@@ -49,7 +62,6 @@ public class MPTGameManager : MonoBehaviour
     {
         if (debugUI.activeInHierarchy)
         {
-            Camera.main.transform.position = gamePosition.position;
             debugUI.SetActive(false);
             for (int i = 0; i < debugUI.transform.childCount; ++i)
             {
@@ -61,7 +73,6 @@ public class MPTGameManager : MonoBehaviour
         }
         else
         {
-            Camera.main.transform.position = debugPosition.position;
             debugUI.SetActive(true);
             for (int i = 0; i < MPTSpawner.Instance.spawnables.Count; ++i)
             {
