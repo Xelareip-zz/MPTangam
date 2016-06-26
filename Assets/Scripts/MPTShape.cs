@@ -153,7 +153,7 @@ public class MPTShape : MonoBehaviour
     {
         if (isOnGrid)
         {
-            transform.position = new Vector3(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.y), transform.position.z);
+            transform.position = new Vector3(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.y + 1), transform.position.z);
         }
 
         isFullyInGrid = true;
