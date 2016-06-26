@@ -63,69 +63,76 @@ public class MPTGrid : MonoBehaviour
         {
             for (int yNW = 0; yNW < height; ++yNW)
             {
-                for (int squareSize = 1; squareSize < width - xNW + 1 && squareSize < height - yNW + 1; ++squareSize)
+                for (int squareWidth = 1; squareWidth < width - xNW + 1; ++squareWidth)
                 {
-                    bool brokenSquare = false;
-                    Dictionary<MPTShape, int> shapeToCount = new Dictionary<MPTShape, int>();
-                    for (int squareX = 0; squareX < squareSize; ++squareX)
+                    for (int squareHeight = 1; squareHeight < height - yNW + 1; ++squareHeight)
                     {
-                        for (int squareY = 0; squareY < squareSize; ++squareY)
+                        bool brokenSquare = false;
+                        Dictionary<MPTShape, int> shapeToCount = new Dictionary<MPTShape, int>();
+                        for (int squareX = 0; squareX < squareWidth; ++squareX)
                         {
-                            Vector2 miniSquarePos = new Vector2(xNW + squareX, yNW + squareY);
-                            if (shapesTab[(int)miniSquarePos.y * 2, (int)miniSquarePos.x] == null || shapesTab[(int)miniSquarePos.y * 2 + 1, (int)miniSquarePos.x] == null)
+                            for (int squareY = 0; squareY < squareHeight; ++squareY)
+                            {
+                                Vector2 miniSquarePos = new Vector2(xNW + squareX, yNW + squareY);
+                                if (shapesTab[(int)miniSquarePos.y * 2, (int)miniSquarePos.x] == null || shapesTab[(int)miniSquarePos.y * 2 + 1, (int)miniSquarePos.x] == null)
+                                {
+                                    brokenSquare = true;
+                                    break;
+                                }
+                                else
+                                {
+                                    MPTShape shape1 = shapesTab[(int)miniSquarePos.y * 2, (int)miniSquarePos.x];
+                                    MPTShape shape2 = shapesTab[(int)miniSquarePos.y * 2 + 1, (int)miniSquarePos.x];
+
+                                    if (shapeToCount.ContainsKey(shape1))
+                                    {
+                                        shapeToCount[shape1] = shapeToCount[shape1] + 1;
+                                    }
+                                    else
+                                    {
+                                        shapeToCount.Add(shape1, 1);
+                                    }
+
+                                    if (shapeToCount.ContainsKey(shape2))
+                                    {
+                                        shapeToCount[shape2] = shapeToCount[shape2] + 1;
+                                    }
+                                    else
+                                    {
+                                        shapeToCount.Add(shape2, 1);
+                                    }
+                                }
+                            }
+                            if (brokenSquare)
+                            {
+                                break;
+                            }
+                        }
+                        if (brokenSquare)
+                        {
+                            continue;
+                        }
+                        if (shapeToCount.Count < 3)
+                        {
+                            continue;
+                        }
+                        squares.Add(new List<MPTShape>());
+                        foreach (KeyValuePair<MPTShape, int> kvp in shapeToCount)
+                        {
+                            if (kvp.Key.miniTrianglesCount != kvp.Value)
                             {
                                 brokenSquare = true;
                                 break;
                             }
                             else
                             {
-                                MPTShape shape1 = shapesTab[(int)miniSquarePos.y * 2, (int)miniSquarePos.x];
-                                MPTShape shape2 = shapesTab[(int)miniSquarePos.y * 2 + 1, (int)miniSquarePos.x];
-
-                                if (shapeToCount.ContainsKey(shape1))
-                                {
-                                    shapeToCount[shape1] = shapeToCount[shape1] + 1;
-                                }
-                                else
-                                {
-                                    shapeToCount.Add(shape1, 1);
-                                }
-
-                                if (shapeToCount.ContainsKey(shape2))
-                                {
-                                    shapeToCount[shape2] = shapeToCount[shape2] + 1;
-                                }
-                                else
-                                {
-                                    shapeToCount.Add(shape2, 1);
-                                }
+                                squares[squares.Count - 1].Add(kvp.Key);
                             }
                         }
                         if (brokenSquare)
                         {
-                            break;
+                            squares.RemoveAt(squares.Count - 1);
                         }
-                    }
-                    if (brokenSquare)
-                    {
-                        break;
-                    }
-                    squares.Add(new List<MPTShape>());
-                    foreach (KeyValuePair<MPTShape, int> kvp in shapeToCount)
-                    {
-                        if (kvp.Key.miniTrianglesCount != kvp.Value)
-                        {
-                            brokenSquare = true;
-                            break;
-                        }
-                        else
-                        {
-                            squares[squares.Count - 1].Add(kvp.Key);
-                        }
-                    }
-                    if (brokenSquare)
-                    {
-                        squares.RemoveAt(squares.Count - 1);
                     }
                 }
             }
