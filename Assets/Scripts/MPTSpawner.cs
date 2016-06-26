@@ -15,10 +15,14 @@ public class MPTSpawner : MonoBehaviour
     public List<GameObject> spawnables;
     private float totalWeights;
 
+    public MPTShape currentShape;
+    public MPTShape nextShape;
+
     void Start()
     {
         instance = this;
         UpdateWeights();
+        SpawnNew();
         SpawnNew();
     }
 
@@ -50,8 +54,19 @@ public class MPTSpawner : MonoBehaviour
             }
         }
 
+        currentShape = nextShape;
+        if (currentShape != null)
+        {
+            currentShape.transform.localPosition = Vector3.zero;
+            currentShape.GetComponent<MPTDraggable>().enabled = true;
+            currentShape.transform.localPosition = Vector3.zero;
+        }
+
         GameObject go = Instantiate<GameObject>(selectedGO);
         go.transform.SetParent(transform);
-        go.transform.localPosition = Vector3.zero;
+        go.transform.localPosition = new Vector3(2.0f, 0.0f, 0.0f);
+        nextShape = go.GetComponent<MPTShape>();
+        nextShape.GetComponent<MPTDraggable>().enabled = false;
+        
     }
 }
