@@ -15,16 +15,20 @@ public class MPTGameManager : MonoBehaviour
 
     public Text scoreText;
     public Text bestScoreText;
+    public Text trashPriceText;
     public GameObject debugUI;
     public Transform debugPosition;
     public Transform gamePosition;
     public GameObject debugWeightModel;
     public int score;
+    public int trashPrice;
 
     void Start()
     {
         instance = this;
-        score = 0;UpdateScoreText();
+        score = 0;
+        trashPrice = 1;
+        UpdateScoreText();
     }
 
     public void ShapeConsumed(MPTShape shape, int multiplier)
@@ -45,9 +49,30 @@ public class MPTGameManager : MonoBehaviour
         bestScoreText.text = "Best : " + MPTPlayer.Instance.GetBestScore();
     }
 
+    public void UpdateTrashText()
+    {
+        trashPriceText.text = "Trash : " + trashPrice;
+    }
+
+    public void IncreaseTrashPrice()
+    {
+        trashPrice *= 2;
+        UpdateTrashText();
+    }
+
+    public void DecreaseTrashPrice()
+    {
+        if (trashPrice > 1)
+        {
+            --trashPrice;
+            UpdateTrashText();
+        }
+    }
+
     public void TrashShape()
     {
-        --score;
+        score -= trashPrice;
+        IncreaseTrashPrice();
         UpdateScoreText();
         MPTShapeManager.Instance.UnregisterShape(MPTSpawner.Instance.currentShape);
         Destroy(MPTSpawner.Instance.currentShape.gameObject);

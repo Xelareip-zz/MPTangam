@@ -714,7 +714,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 60}
-  m_SizeDelta: {x: 200, y: 60}
+  m_SizeDelta: {x: 250, y: 60}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &477990662
 MonoBehaviour:
@@ -920,7 +920,7 @@ MonoBehaviour:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_FontSize: 52
     m_FontStyle: 1
-    m_BestFit: 0
+    m_BestFit: 1
     m_MinSize: 0
     m_MaxSize: 287
     m_Alignment: 4
@@ -929,7 +929,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Trash
+  m_Text: 'Trash : 1'
 --- !u!222 &541116762
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1076,7 +1076,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 200, y: 60}
+  m_SizeDelta: {x: 250, y: 60}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &656956932
 MonoBehaviour:
@@ -1251,11 +1251,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scoreText: {fileID: 1140252789}
   bestScoreText: {fileID: 1735583583}
+  trashPriceText: {fileID: 541116761}
   debugUI: {fileID: 1510942207}
   debugPosition: {fileID: 321240747}
   gamePosition: {fileID: 321240747}
   debugWeightModel: {fileID: 169804, guid: d9d752aa36d4e3b4da0d8050f0c8061b, type: 2}
   score: 0
+  trashPrice: 0
 --- !u!1 &711881757
 GameObject:
   m_ObjectHideFlags: 0
@@ -1729,7 +1731,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0.000028133392, y: 120}
-  m_SizeDelta: {x: 200, y: 60}
+  m_SizeDelta: {x: 250, y: 60}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &1003292377
 MonoBehaviour:

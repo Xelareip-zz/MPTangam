@@ -200,7 +200,7 @@ public class MPTShape : MonoBehaviour
         }
         else
         {
-            multiplier += 1;
+            multiplier += currentMultiplier;
         }
     }
 }

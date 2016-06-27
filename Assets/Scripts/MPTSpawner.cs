@@ -42,6 +42,7 @@ public class MPTSpawner : MonoBehaviour
     {
         ++squaresDone;
         UpdateWeights();
+        MPTGameManager.Instance.DecreaseTrashPrice();
     }
 
     public void ResetSquaresDone()
