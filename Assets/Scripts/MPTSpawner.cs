@@ -44,6 +44,12 @@ public class MPTSpawner : MonoBehaviour
         UpdateWeights();
     }
 
+    public void ResetSquaresDone()
+    {
+        squaresDone = 0;
+        UpdateWeights();
+    }
+
     private void LoadWeightsData()
     {
         string saveString = weightsTextAsset.text;
