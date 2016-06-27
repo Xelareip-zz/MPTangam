@@ -1,2 +1,2 @@
 TriangleNE:0:1:1:1
-TriangleSW:0:1:1:0
+TriangleSW:0:1:1:1

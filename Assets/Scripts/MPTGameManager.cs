@@ -27,9 +27,9 @@ public class MPTGameManager : MonoBehaviour
         score = 0;UpdateScoreText();
     }
 
-    public void ShapeConsumed(MPTShape shape)
+    public void ShapeConsumed(MPTShape shape, int multiplier)
     {
-        ++score;
+        score += multiplier;
         UpdateScoreText();
     }
 

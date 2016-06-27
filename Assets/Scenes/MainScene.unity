@@ -1210,7 +1210,8 @@ MonoBehaviour:
   - {fileID: 160084, guid: cfbb2fb70af88418f831ce2e84fbb598, type: 2}
   - {fileID: 123322, guid: 929afa37b78484c4eba3012077eea6b1, type: 2}
   - {fileID: 193206, guid: 48f7533e485e54a669cf4c09e9349ea1, type: 2}
-  - {fileID: 156710, guid: 778b5eeb774dc4b0e832d570e99564f7, type: 2}
+  - {fileID: 173160, guid: efd922a7673da46829a037238739bc6b, type: 2}
+  weightsTextAsset: {fileID: 4900000, guid: 730ecd2ad7603924d8fc9944ed15e0d1, type: 3}
   currentShape: {fileID: 0}
   nextShape: {fileID: 0}
 --- !u!4 &704424568

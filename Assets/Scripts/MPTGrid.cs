@@ -151,9 +151,19 @@ public class MPTGrid : MonoBehaviour
         {
             MPTSpawner.Instance.SquareDone();
         }
+        int shapeToKeep = Random.Range(0, finalSquare.Count);
+
+        int multiplier = 1;
+
         foreach (MPTShape currentShape in finalSquare)
         {
-            currentShape.Consume();
+            multiplier += currentShape.multiplier;
+        }
+
+        foreach (MPTShape currentShape in finalSquare)
+        {
+            currentShape.Consume(multiplier, shapeToKeep == 0);
+            --shapeToKeep;
         }
     }
 }

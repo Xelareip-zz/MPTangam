@@ -23,6 +23,7 @@ public class MPTShape : MonoBehaviour
     public PolygonCollider2D polygonCollider;
     public MPTDraggable draggable;
     public float weight;
+    public int multiplier;
 
     private float width;
     private float height;
@@ -189,10 +190,17 @@ public class MPTShape : MonoBehaviour
         }
     }
 
-    public void Consume()
+    public void Consume(int currentMultiplier, bool keepShape)
     {
-        MPTGameManager.Instance.ShapeConsumed(this);
-        MPTShapeManager.Instance.UnregisterShape(this);
-        Destroy(gameObject);
+        MPTGameManager.Instance.ShapeConsumed(this, currentMultiplier);
+        if (keepShape == false)
+        {
+            MPTShapeManager.Instance.UnregisterShape(this);
+            Destroy(gameObject);
+        }
+        else
+        {
+            multiplier += 1;
+        }
     }
 }
