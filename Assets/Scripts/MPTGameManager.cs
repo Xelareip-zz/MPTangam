@@ -15,12 +15,16 @@ public class MPTGameManager : MonoBehaviour
 
     public Text scoreText;
     public Text bestScoreText;
+    public Text scoreFinalText;
+    public Text bestScoreFinalText;
     public Text trashPriceText;
+    public GameObject looseScreen;
     public GameObject debugUI;
     public Transform debugPosition;
     public Transform gamePosition;
     public GameObject debugWeightModel;
     public int score;
+    public int currentTopScore;
     public int trashPrice;
 
     void Start()
@@ -30,10 +34,16 @@ public class MPTGameManager : MonoBehaviour
         trashPrice = 1;
         UpdateScoreText();
     }
+    
+    void Loose()
+    {
+        looseScreen.SetActive(true);
+    }
 
     public void ShapeConsumed(MPTShape shape, int multiplier)
     {
         score += multiplier;
+        currentTopScore = Mathf.Max(score, currentTopScore);
         UpdateScoreText();
     }
 
@@ -42,12 +52,14 @@ public class MPTGameManager : MonoBehaviour
         MPTPlayer.Instance.UpdateBestScore(score);
         UpdateBestScoreText();
         scoreText.text = "Score : " + score;
-    }
+        scoreFinalText.text = "" + currentTopScore;
+}
 
     public void UpdateBestScoreText()
     {
         bestScoreText.text = "Best : " + MPTPlayer.Instance.GetBestScore();
-    }
+        bestScoreFinalText.text = "" + MPTPlayer.Instance.GetBestScore();
+}
 
     public void UpdateTrashText()
     {
@@ -72,11 +84,18 @@ public class MPTGameManager : MonoBehaviour
     public void TrashShape()
     {
         score -= trashPrice;
-        IncreaseTrashPrice();
-        UpdateScoreText();
-        MPTShapeManager.Instance.UnregisterShape(MPTSpawner.Instance.currentShape);
-        Destroy(MPTSpawner.Instance.currentShape.gameObject);
-        MPTSpawner.Instance.SpawnNew();
+        if (score < 0)
+        {
+            Loose();
+        }
+        else
+        {
+            IncreaseTrashPrice();
+            UpdateScoreText();
+            MPTShapeManager.Instance.UnregisterShape(MPTSpawner.Instance.currentShape);
+            Destroy(MPTSpawner.Instance.currentShape.gameObject);
+            MPTSpawner.Instance.SpawnNew();
+        }
     }
 
     public void Restart()
@@ -91,6 +110,8 @@ public class MPTGameManager : MonoBehaviour
         }
         MPTShapeManager.Instance.listOfShapes.Clear();
         MPTSpawner.Instance.SpawnNew();
+        MPTSpawner.Instance.SpawnNew();
+        looseScreen.SetActive(false);
     }
 
     public void ToggleDebugMode()
