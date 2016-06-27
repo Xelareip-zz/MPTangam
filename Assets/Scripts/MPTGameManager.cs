@@ -14,6 +14,7 @@ public class MPTGameManager : MonoBehaviour
     }
 
     public Text scoreText;
+    public Text bestScoreText;
     public GameObject debugUI;
     public Transform debugPosition;
     public Transform gamePosition;
@@ -23,17 +24,25 @@ public class MPTGameManager : MonoBehaviour
     void Start()
     {
         instance = this;
-        score = 0;
+        score = 0;UpdateScoreText();
     }
 
     public void ShapeConsumed(MPTShape shape)
     {
         ++score;
+        UpdateScoreText();
     }
 
     public void UpdateScoreText()
     {
+        MPTPlayer.Instance.UpdateBestScore(score);
+        UpdateBestScoreText();
         scoreText.text = "Score : " + score;
+    }
+
+    public void UpdateBestScoreText()
+    {
+        bestScoreText.text = "Best : " + MPTPlayer.Instance.GetBestScore();
     }
 
     public void TrashShape()
