@@ -147,7 +147,10 @@ public class MPTGrid : MonoBehaviour
                 finalSquare = square;
             }
         }
-
+        if (finalSquare.Count >= 3)
+        {
+            MPTSpawner.Instance.SquareDone();
+        }
         foreach (MPTShape currentShape in finalSquare)
         {
             currentShape.Consume();

@@ -13,6 +13,10 @@ public class MPTSpawner : MonoBehaviour
     }
 
     public List<GameObject> spawnables;
+    private Dictionary<string, GameObject> spawnablesDict;
+    private Dictionary<string, Dictionary<int, float>> _weights;
+    public TextAsset weightsTextAsset;
+    private int squaresDone;
     private float totalWeights;
 
     public MPTShape currentShape;
@@ -20,14 +24,54 @@ public class MPTSpawner : MonoBehaviour
 
     void Start()
     {
+        squaresDone = 0;
         instance = this;
+        spawnablesDict = new Dictionary<string, GameObject>();
+        foreach (GameObject cur in spawnables)
+        {
+            spawnablesDict.Add(cur.name, cur);
+            cur.GetComponent<MPTShape>().weight = 0;
+        }
+        LoadWeightsData();
         UpdateWeights();
         SpawnNew();
         SpawnNew();
     }
 
+    public void SquareDone()
+    {
+        ++squaresDone;
+        UpdateWeights();
+    }
+
+    private void LoadWeightsData()
+    {
+        string saveString = weightsTextAsset.text;
+        saveString = saveString.Replace("\r", "");
+        string[] saveLines = saveString.Split('\n');
+        _weights = new Dictionary<string, Dictionary<int, float>>();
+
+        foreach (string line in saveLines)
+        {
+            string[] lineSplit = line.Split(':');
+            string shapeName = lineSplit[0];
+            _weights.Add(shapeName, new Dictionary<int, float>());
+            for (int i = 1; i < lineSplit.Length; i += 2)
+            {
+                _weights[shapeName].Add(int.Parse(lineSplit[i]), float.Parse(lineSplit[i + 1]));
+            }
+        }
+    }
+
     private void UpdateWeights()
     {
+        foreach (KeyValuePair<string, Dictionary<int, float>> kvp in _weights)
+        {
+            if (kvp.Value.ContainsKey(squaresDone))
+            {
+                spawnablesDict[kvp.Key].GetComponent<MPTShape>().weight = kvp.Value[squaresDone];
+            }
+        }
         totalWeights = 0;
         foreach (GameObject go in spawnables)
         {
