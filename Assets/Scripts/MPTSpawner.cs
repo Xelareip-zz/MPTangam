@@ -54,7 +54,7 @@ public class MPTSpawner : MonoBehaviour
     private void LoadWeightsData()
     {
         string saveString = weightsTextAsset.text;
-        saveString = saveString.Replace("\r", "");
+		saveString = saveString.Replace("\r", "\n");
         string[] saveLines = saveString.Split('\n');
         _weights = new Dictionary<string, Dictionary<int, float>>();
 
