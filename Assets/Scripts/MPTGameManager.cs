@@ -68,7 +68,7 @@ public class MPTGameManager : MonoBehaviour
 
     public void IncreaseTrashPrice()
     {
-        trashPrice *= 2;
+        trashPrice *= 1; //Test crado pour laisser toujours le cost a 1
         UpdateTrashText();
     }
 
