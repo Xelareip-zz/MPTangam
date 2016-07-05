@@ -101,6 +101,7 @@ public class MPTGameManager : MonoBehaviour
     public void Restart()
     {
         score = 0;
+        trashPrice = 1;
         UpdateScoreText();
         MPTSpawner.Instance.ResetSquaresDone();
         MPTGrid.Instance.ResetGrid();
