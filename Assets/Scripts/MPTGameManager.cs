@@ -20,6 +20,7 @@ public class MPTGameManager : MonoBehaviour
     public Text trashPriceText;
     public GameObject looseScreen;
     public GameObject debugUI;
+    public GameObject startUI;
     public Transform debugPosition;
     public Transform gamePosition;
     public GameObject debugWeightModel;
@@ -33,6 +34,13 @@ public class MPTGameManager : MonoBehaviour
         score = 0;
         trashPrice = 1;
         UpdateScoreText();
+    }
+
+    public void StartGame()
+    {
+        Destroy(startUI);
+        MPTSpawner.Instance.SpawnNew();
+        MPTSpawner.Instance.SpawnNew();
     }
     
     void Loose()

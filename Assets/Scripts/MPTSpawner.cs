@@ -34,6 +34,10 @@ public class MPTSpawner : MonoBehaviour
         }
         LoadWeightsData();
         UpdateWeights();
+    }
+
+    public void StartGame()
+    {
         SpawnNew();
         SpawnNew();
     }
