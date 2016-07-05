@@ -16,6 +16,12 @@ public class MPTSpawner : MonoBehaviour
     private Dictionary<string, GameObject> spawnablesDict;
     private Dictionary<string, Dictionary<int, float>> _weights;
     public TextAsset weightsTextAsset;
+    public TextAsset sequencesTextAsset;
+    public TextAsset sequencesWeightsTextAsset;
+    private Dictionary<string, List<string>> _sequences;
+    private Dictionary<string, float> _sequenceToWeight;
+    public string currentSequenceName;
+    public List<string> currentSequence;
     private int squaresDone;
     private float totalWeights;
 
@@ -27,12 +33,14 @@ public class MPTSpawner : MonoBehaviour
         squaresDone = 0;
         instance = this;
         spawnablesDict = new Dictionary<string, GameObject>();
+        _sequenceToWeight = new Dictionary<string, float>();
         foreach (GameObject cur in spawnables)
         {
             spawnablesDict.Add(cur.name, cur);
             cur.GetComponent<MPTShape>().weight = 0;
         }
-        LoadWeightsData();
+        //LoadWeightsData();
+        LoadSequencesData();
         UpdateWeights();
     }
 
@@ -55,10 +63,51 @@ public class MPTSpawner : MonoBehaviour
         UpdateWeights();
     }
 
+    private void LoadSequencesData()
+    {
+        string saveString = sequencesTextAsset.text;
+        saveString = saveString.Replace("\r", "\n");
+        saveString = saveString.Replace("\n\n", "\n");
+        string[] saveLines = saveString.Split('\n');
+
+        _sequences = new Dictionary<string, List<string>>();
+
+
+        foreach (string line in saveLines)
+        {
+            string[] lineSplit = line.Split(':');
+            string shapeName = lineSplit[0];
+            _sequences.Add(shapeName, new List<string>());
+            for (int i = 1; i < lineSplit.Length; ++i)
+            {
+                _sequences[shapeName].Add(lineSplit[i]);
+            }
+        }
+
+
+
+        saveString = sequencesWeightsTextAsset.text;
+        saveString = saveString.Replace("\r", "\n");
+        saveString = saveString.Replace("\n\n", "\n");
+        saveLines = saveString.Split('\n');
+        _weights = new Dictionary<string, Dictionary<int, float>>();
+
+        foreach (string line in saveLines)
+        {
+            string[] lineSplit = line.Split(':');
+            string shapeName = lineSplit[0];
+            _weights.Add(shapeName, new Dictionary<int, float>());
+            for (int i = 1; i < lineSplit.Length; i += 2)
+            {
+                _weights[shapeName].Add(int.Parse(lineSplit[i]), float.Parse(lineSplit[i + 1]));
+            }
+        }
+    }
+
     private void LoadWeightsData()
     {
         string saveString = weightsTextAsset.text;
-		saveString = saveString.Replace("\r", "\n");
+        saveString = saveString.Replace("\r", "\n");
         string[] saveLines = saveString.Split('\n');
         _weights = new Dictionary<string, Dictionary<int, float>>();
 
@@ -74,8 +123,31 @@ public class MPTSpawner : MonoBehaviour
         }
     }
 
+    private void UpdateWeightsSequences()
+    {
+        totalWeights = 0;
+        _sequenceToWeight = new Dictionary<string, float>();
+        foreach (KeyValuePair<string, Dictionary<int, float>> kvp in _weights)
+        {
+            int lastSquareNumber = 0;
+            float lastWeight = 0;
+            foreach (KeyValuePair<int, float> kvpWeights in kvp.Value)
+            {
+                if (kvpWeights.Key <= squaresDone && kvpWeights.Key >= lastSquareNumber)
+                {
+                    lastSquareNumber = kvpWeights.Key;
+                    lastWeight = kvpWeights.Value;
+                }
+            }
+            totalWeights += lastWeight;
+            _sequenceToWeight.Add(kvp.Key, lastWeight);
+        }
+    }
+
     private void UpdateWeights()
     {
+        UpdateWeightsSequences();
+        return;
         foreach (KeyValuePair<string, Dictionary<int, float>> kvp in _weights)
         {
             if (kvp.Value.ContainsKey(squaresDone))
@@ -91,8 +163,40 @@ public class MPTSpawner : MonoBehaviour
         }
     }
 
+    private void PickSequence()
+    {
+        float totalWeightsCopy = Random.Range(0.0f, totalWeights);
+        
+        foreach (string sequence in _sequences.Keys)
+        {
+            totalWeightsCopy -= _sequenceToWeight[sequence];
+            if (totalWeightsCopy < 0.0f)
+            {
+                currentSequenceName = sequence;
+                currentSequence = new List<string>(_sequences[currentSequenceName]);
+                break;
+            }
+        }
+    }
+
+    public void SpawnNewSequence()
+    {
+        if (currentSequence.Count == 0)
+        {
+            UpdateWeightsSequences();
+            PickSequence();
+        }
+
+        int newSpawnRand = Random.Range(0, currentSequence.Count);
+        string shapeName = currentSequence[newSpawnRand];
+        currentSequence.RemoveAt(newSpawnRand);
+        CreateShape(spawnablesDict[shapeName]);
+    }
+
     public void SpawnNew()
     {
+        SpawnNewSequence();
+        return;
         UpdateWeights();
         float newSpawnRand = Random.Range(0.0f, totalWeights);
         
@@ -108,6 +212,12 @@ public class MPTSpawner : MonoBehaviour
                 break;
             }
         }
+
+        CreateShape(selectedGO);
+    }
+
+    private void CreateShape(GameObject selectedGO)
+    {
 
         currentShape = nextShape;
         if (currentShape != null)

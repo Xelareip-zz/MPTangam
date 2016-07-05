@@ -1,0 +1,2 @@
+Bitch:TriangleNE:TriangleNW:TriangleSE:TriangleSW
+Slap:TriangleE:TriangleN:TriangleS:TriangleW

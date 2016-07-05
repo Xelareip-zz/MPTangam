@@ -1250,6 +1250,11 @@ MonoBehaviour:
   - {fileID: 193206, guid: 48f7533e485e54a669cf4c09e9349ea1, type: 2}
   - {fileID: 173160, guid: efd922a7673da46829a037238739bc6b, type: 2}
   weightsTextAsset: {fileID: 4900000, guid: 730ecd2ad7603924d8fc9944ed15e0d1, type: 3}
+  sequencesTextAsset: {fileID: 4900000, guid: 0a7a13603ef8e1c4db22a295c916bbad, type: 3}
+  sequencesWeightsTextAsset: {fileID: 4900000, guid: 0c6a2e6ddac45ed44b42bf8879826396,
+    type: 3}
+  currentSequenceName: 
+  currentSequence: []
   currentShape: {fileID: 0}
   nextShape: {fileID: 0}
 --- !u!4 &704424568
