@@ -122,6 +122,8 @@ public class MPTGameManager : MonoBehaviour
             Destroy(shape.gameObject);
         }
         MPTShapeManager.Instance.listOfShapes.Clear();
+        MPTSpawner.Instance.Clear();
+        MPTSpawner.Instance.SpawnNew();
         MPTSpawner.Instance.SpawnNew();
         MPTSpawner.Instance.SpawnNew();
         looseScreen.SetActive(false);

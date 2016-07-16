@@ -269,4 +269,12 @@ public class MPTSpawner : MonoBehaviour
         nextShape.GetComponent<MPTDraggable>().enabled = false;
         */
     }
+
+    public void Clear()
+    {
+        for (int shapeId = 0; shapeId < spawnedShapes.Length; ++shapeId)
+        {
+            spawnedShapes[shapeId] = null;
+        }
+    }
 }
