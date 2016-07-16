@@ -171,7 +171,7 @@ public class MPTGrid : MonoBehaviour
             {
                 currentShape.SetMultiplier(highestMultiplier + 1);
                 GameObject spawnTextMultiplier = Instantiate<GameObject>(spawnText);
-                spawnTextMultiplier.GetComponent<TextMesh>().text = "x " + (highestMultiplier + 1);
+                spawnTextMultiplier.GetComponent<TextMesh>().text = "x " + (highestMultiplier + 2);
                 spawnTextMultiplier.transform.position = currentShape.transform.position + Vector3.back;
             }
             --shapeToKeep;

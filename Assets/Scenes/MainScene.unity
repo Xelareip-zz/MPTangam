@@ -1225,6 +1225,7 @@ MonoBehaviour:
   coll: {fileID: 0}
   width: 10
   height: 10
+  spawnText: {fileID: 182510, guid: 328ec4b9f1b3b51458ae537783fb6337, type: 2}
 --- !u!4 &586460347
 Transform:
   m_ObjectHideFlags: 0

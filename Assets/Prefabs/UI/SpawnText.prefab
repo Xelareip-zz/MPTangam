@@ -67,8 +67,8 @@ TextMesh:
   m_OffsetZ: 0
   m_CharacterSize: 1
   m_LineSpacing: 1
-  m_Anchor: 0
-  m_Alignment: 0
+  m_Anchor: 4
+  m_Alignment: 1
   m_TabSize: 4
   m_FontSize: 161
   m_FontStyle: 0
@@ -89,8 +89,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startScale: 0
-  endScale: 5
-  duration: 2
+  endScale: 0.15
+  duration: 0.75
+  stayDuration: 0.5
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

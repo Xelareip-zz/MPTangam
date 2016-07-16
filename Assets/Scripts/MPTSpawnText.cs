@@ -8,6 +8,7 @@ public class MPTSpawnText : MonoBehaviour
     public float startScale;
     public float endScale;
     public float duration;
+    public float stayDuration;
 
 	// Use this for initialization
 	void Start ()
@@ -21,6 +22,12 @@ public class MPTSpawnText : MonoBehaviour
         while (spentTime < duration)
         {
             transform.localScale = Vector3.one * Mathf.Lerp(startScale, endScale, spentTime / duration);
+            spentTime += SPAWN_TEXT_FREQUENCY;
+            yield return new WaitForSeconds(SPAWN_TEXT_FREQUENCY);
+        }
+        spentTime = 0.0f;
+        while (spentTime < stayDuration)
+        {
             spentTime += SPAWN_TEXT_FREQUENCY;
             yield return new WaitForSeconds(SPAWN_TEXT_FREQUENCY);
         }
