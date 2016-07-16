@@ -1597,6 +1597,18 @@ MonoBehaviour:
   - {fileID: 123322, guid: 929afa37b78484c4eba3012077eea6b1, type: 2}
   - {fileID: 193206, guid: 48f7533e485e54a669cf4c09e9349ea1, type: 2}
   - {fileID: 173160, guid: efd922a7673da46829a037238739bc6b, type: 2}
+  - {fileID: 150436, guid: 127928d6738724595b56ab510689e76c, type: 2}
+  - {fileID: 142100, guid: 3e0cbe630bdd84408b5245810aaaa9b8, type: 2}
+  - {fileID: 149822, guid: 785ed460053a7417ab8c7525b47fb081, type: 2}
+  - {fileID: 149658, guid: a16e4ecf7908240d89e7b20dd5f57f12, type: 2}
+  - {fileID: 132546, guid: a7366f69e140346878a2346368af2b00, type: 2}
+  - {fileID: 192808, guid: b4c2c0d86fd014582a652eea5131357b, type: 2}
+  - {fileID: 164670, guid: c091c7391494f419cb3d4e4656bc45f6, type: 2}
+  - {fileID: 103042, guid: f29faccad7bcc458590ad223bc803c5e, type: 2}
+  - {fileID: 164796, guid: 5cfcccc4915fe4ba2b46defb4eb75551, type: 2}
+  - {fileID: 115114, guid: 8293f5f0168cb4b0bbe1bf8d88382bee, type: 2}
+  - {fileID: 133926, guid: 984410c8c6e1549528ac83f806f0d6aa, type: 2}
+  - {fileID: 157006, guid: ede289c334ba9497f93f39d53543d018, type: 2}
   weightsTextAsset: {fileID: 4900000, guid: 730ecd2ad7603924d8fc9944ed15e0d1, type: 3}
   sequencesTextAsset: {fileID: 4900000, guid: 0a7a13603ef8e1c4db22a295c916bbad, type: 3}
   sequencesWeightsTextAsset: {fileID: 4900000, guid: 0c6a2e6ddac45ed44b42bf8879826396,
