@@ -20,6 +20,10 @@ public class MPTDraggable : MonoBehaviour
 
     void Update()
     {
+        if (MPTGameManager.Instance.isPaused)
+        {
+            currentlyDragged = false;
+        }
         Vector2 initPosition = new Vector2(float.MinValue, float.MinValue);
         Vector2 position = initPosition;
         bool justClicked = false;

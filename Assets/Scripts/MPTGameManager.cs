@@ -22,12 +22,15 @@ public class MPTGameManager : MonoBehaviour
     public GameObject looseScreen;
     public GameObject debugUI;
     public GameObject startUI;
+    public GameObject pauseUI;
     public Transform debugPosition;
     public Transform gamePosition;
     public GameObject debugWeightModel;
     public int score;
     public int currentTopScore;
     public int trashPrice;
+
+    public bool isPaused = false;
 
     public List<Color> multiplierColors;
 
@@ -127,6 +130,7 @@ public class MPTGameManager : MonoBehaviour
         MPTSpawner.Instance.SpawnNew();
         MPTSpawner.Instance.SpawnNew();
         looseScreen.SetActive(false);
+        Resume();
     }
 
     public void ToggleDebugMode()
@@ -160,5 +164,17 @@ public class MPTGameManager : MonoBehaviour
                 (debugWeight.transform as RectTransform).offsetMax = new Vector2(0.0f, -height * (i + 1));
             }
         }
+    }
+
+    public void Pause()
+    {
+        isPaused = true;
+        pauseUI.SetActive(true);
+    }
+
+    public void Resume()
+    {
+        isPaused = false;
+        pauseUI.SetActive(false);
     }
 }
