@@ -14,7 +14,7 @@ GameObject:
   - 114: {fileID: 11404750}
   - 114: {fileID: 11418604}
   m_Layer: 8
-  m_Name: ParallelogramWE 1
+  m_Name: ParallelogramNS
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -93,7 +93,7 @@ MonoBehaviour:
   mainSprite: {fileID: 0}
   polygonCollider: {fileID: 6090786}
   draggable: {fileID: 0}
-  weight: 2
+  weight: 0
   multiplier: 0
   isOnGrid: 0
   isFullyInGrid: 0
