@@ -164,6 +164,7 @@ public class MPTGrid : MonoBehaviour
             highestMultiplier = Mathf.Max(highestMultiplier, currentShape.multiplier);
         }
 
+        int shapeToKeepPosition = shapeToKeep;
         foreach (MPTShape currentShape in finalSquare)
         {
             currentShape.Consume(multiplier, shapeToKeep == 0);
@@ -173,6 +174,13 @@ public class MPTGrid : MonoBehaviour
                 GameObject spawnTextMultiplier = Instantiate<GameObject>(spawnText);
                 spawnTextMultiplier.GetComponent<TextMesh>().text = "x " + (highestMultiplier + 2);
                 spawnTextMultiplier.transform.position = currentShape.transform.position + Vector3.back;
+            }
+            else
+            {
+                MPTSquareDoneAnimation anim = currentShape.gameObject.AddComponent<MPTSquareDoneAnimation>();
+                anim.targetPosition = finalSquare[shapeToKeepPosition].transform.position + Vector3.forward;
+                anim.targetScale = Vector3.zero;
+                anim.animationTime = 1.0f;
             }
             --shapeToKeep;
         }

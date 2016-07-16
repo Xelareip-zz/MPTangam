@@ -9,8 +9,7 @@ public class MPTSpawnText : MonoBehaviour
     public float endScale;
     public float duration;
     public float stayDuration;
-
-	// Use this for initialization
+    
 	void Start ()
     {
         StartCoroutine(ApplyScale());

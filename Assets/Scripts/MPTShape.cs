@@ -213,7 +213,7 @@ public class MPTShape : MonoBehaviour
         if (keepShape == false)
         {
             MPTShapeManager.Instance.UnregisterShape(this);
-            Destroy(gameObject);
+            //Destroy(gameObject);
         }/*
         else
         {
