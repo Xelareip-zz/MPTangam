@@ -17,6 +17,8 @@ public class MPTGrid : MonoBehaviour
     public int height;
     public MPTShape[,] shapesTab;
 
+    public GameObject spawnText;
+
     void Start()
     {
         instance = this;
@@ -168,6 +170,9 @@ public class MPTGrid : MonoBehaviour
             if (shapeToKeep == 0)
             {
                 currentShape.SetMultiplier(highestMultiplier + 1);
+                GameObject spawnTextMultiplier = Instantiate<GameObject>(spawnText);
+                spawnTextMultiplier.GetComponent<TextMesh>().text = "x " + (highestMultiplier + 1);
+                spawnTextMultiplier.transform.position = currentShape.transform.position + Vector3.back;
             }
             --shapeToKeep;
         }
