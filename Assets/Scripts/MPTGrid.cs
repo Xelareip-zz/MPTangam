@@ -159,7 +159,7 @@ public class MPTGrid : MonoBehaviour
         foreach (MPTShape currentShape in finalSquare)
         {
             multiplier += currentShape.multiplier;
-            highestMultiplier = Mathf.Max(currentShape.multiplier);
+            highestMultiplier = Mathf.Max(highestMultiplier, currentShape.multiplier);
         }
 
         foreach (MPTShape currentShape in finalSquare)
