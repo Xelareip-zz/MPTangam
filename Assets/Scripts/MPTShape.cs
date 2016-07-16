@@ -22,6 +22,7 @@ public class MPTShape : MonoBehaviour
     public Sprite mainSprite;
     public PolygonCollider2D polygonCollider;
     public MPTDraggable draggable;
+    SpriteRenderer spriteRenderer;
     public float weight;
     public int multiplier;
 
@@ -31,6 +32,7 @@ public class MPTShape : MonoBehaviour
     public bool isOnGrid;
     public bool isFullyInGrid;
     public bool canDrop;
+    public bool hasBeenDropped;
     public int miniTrianglesCount;
 
     private Vector3 initialScale;
@@ -121,6 +123,7 @@ public class MPTShape : MonoBehaviour
 
     void Update()
     {
+        UpdateColor();
         if (MPTGrid.Instance != null && MPTGrid.Instance.coll.IsTouching(polygonCollider))
         {
             isOnGrid = true;
@@ -136,6 +139,8 @@ public class MPTShape : MonoBehaviour
     {
         initialScale = transform.localScale;
         transform.localScale = initialScale / 2.0f;
+        hasBeenDropped = false;
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     private void CheckCanDrop()
@@ -161,6 +166,7 @@ public class MPTShape : MonoBehaviour
     public void AfterDrag()
     {
         transform.localScale = initialScale;
+        UpdateColor();
         if (isOnGrid)
         {
             transform.position = new Vector3(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.y + 1), transform.position.z);
@@ -192,6 +198,7 @@ public class MPTShape : MonoBehaviour
             MPTSpawner.Instance.ShapeDropped(this.gameObject);
             MPTSpawner.Instance.SpawnNew();
             MPTGrid.Instance.ShapeDropped(this);
+            hasBeenDropped = true;
         }
         else
         {
@@ -219,8 +226,19 @@ public class MPTShape : MonoBehaviour
         if (newMultiplier < MPTGameManager.Instance.multiplierColors.Count)
         {
             multiplier = newMultiplier;
-            SpriteRenderer renderer = GetComponent<SpriteRenderer>();
-            renderer.color = MPTGameManager.Instance.multiplierColors[multiplier];
+            spriteRenderer.color = MPTGameManager.Instance.multiplierColors[multiplier];
+        }
+    }
+
+    public void UpdateColor()
+    {
+        if (hasBeenDropped || canDrop)
+        {
+            spriteRenderer.color = MPTGameManager.Instance.multiplierColors[multiplier];
+        }
+        else
+        {
+            spriteRenderer.color = MPTGameManager.Instance.cantDropColor;
         }
     }
 }

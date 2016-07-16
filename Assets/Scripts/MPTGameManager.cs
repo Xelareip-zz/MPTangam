@@ -32,6 +32,7 @@ public class MPTGameManager : MonoBehaviour
 
     public bool isPaused = false;
 
+    public Color cantDropColor;
     public List<Color> multiplierColors;
 
     void Start()
