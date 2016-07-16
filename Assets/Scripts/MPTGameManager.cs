@@ -41,6 +41,7 @@ public class MPTGameManager : MonoBehaviour
         Destroy(startUI);
         MPTSpawner.Instance.SpawnNew();
         MPTSpawner.Instance.SpawnNew();
+        MPTSpawner.Instance.SpawnNew();
     }
     
     void Loose()

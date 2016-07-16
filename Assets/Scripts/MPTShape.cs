@@ -180,7 +180,7 @@ public class MPTShape : MonoBehaviour
         if (isOnGrid && isFullyInGrid && canDrop)
         {
             Destroy(draggable);
-            
+            MPTSpawner.Instance.ShapeDropped(this.gameObject);
             MPTSpawner.Instance.SpawnNew();
             MPTGrid.Instance.ShapeDropped(this);
         }

@@ -12,6 +12,9 @@ public class MPTSpawner : MonoBehaviour
         }
     }
 
+    public GameObject[] spawnPoints = new GameObject[3];
+    public GameObject[] spawnedShapes = new GameObject[3];
+
     public List<GameObject> spawnables;
     private Dictionary<string, GameObject> spawnablesDict;
     private Dictionary<string, Dictionary<int, float>> _weights;
@@ -26,7 +29,7 @@ public class MPTSpawner : MonoBehaviour
     private float totalWeights;
 
     public MPTShape currentShape;
-    public MPTShape nextShape;
+    //public MPTShape nextShape;
 
     void Start()
     {
@@ -46,6 +49,7 @@ public class MPTSpawner : MonoBehaviour
 
     public void StartGame()
     {
+        SpawnNew();
         SpawnNew();
         SpawnNew();
     }
@@ -148,6 +152,7 @@ public class MPTSpawner : MonoBehaviour
     {
         UpdateWeightsSequences();
         return;
+        /*
         foreach (KeyValuePair<string, Dictionary<int, float>> kvp in _weights)
         {
             if (kvp.Value.ContainsKey(squaresDone))
@@ -160,7 +165,7 @@ public class MPTSpawner : MonoBehaviour
         {
             MPTShape shape = go.GetComponent<MPTShape>();
             totalWeights += shape.weight;
-        }
+        }*/
     }
 
     private void PickSequence()
@@ -197,6 +202,7 @@ public class MPTSpawner : MonoBehaviour
     {
         SpawnNewSequence();
         return;
+        /*
         UpdateWeights();
         float newSpawnRand = Random.Range(0.0f, totalWeights);
         
@@ -213,12 +219,41 @@ public class MPTSpawner : MonoBehaviour
             }
         }
 
-        CreateShape(selectedGO);
+        CreateShape(selectedGO);*/
+    }
+
+    private void CreateShapeInQueue(GameObject selectedGO)
+    {
+        for (int spawnId = 0; spawnId < spawnedShapes.Length; ++spawnId)
+        {
+            if (spawnedShapes[spawnId] == null)
+            {
+                GameObject go = Instantiate<GameObject>(selectedGO);
+                go.transform.SetParent(spawnPoints[spawnId].transform);
+                go.transform.localPosition = new Vector3(0.0f, 0.0f, 0.0f);
+                spawnedShapes[spawnId] = go;
+                //nextShape.GetComponent<MPTDraggable>().enabled = false;
+                return;
+            }
+        }
+    }
+
+    public void ShapeDropped(GameObject shape)
+    {
+        for (int spawnId = 0; spawnId < spawnedShapes.Length; ++spawnId)
+        {
+            if (spawnedShapes[spawnId] == shape)
+            {
+                spawnedShapes[spawnId] = null;
+            }
+        }
     }
 
     private void CreateShape(GameObject selectedGO)
     {
-
+        CreateShapeInQueue(selectedGO);
+        return;
+        /*
         currentShape = nextShape;
         if (currentShape != null)
         {
@@ -232,6 +267,6 @@ public class MPTSpawner : MonoBehaviour
         go.transform.localPosition = new Vector3(2.0f, 0.0f, 0.0f);
         nextShape = go.GetComponent<MPTShape>();
         nextShape.GetComponent<MPTDraggable>().enabled = false;
-        
+        */
     }
 }
