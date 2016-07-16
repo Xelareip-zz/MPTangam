@@ -1,2 +1,1 @@
-Bitch:TriangleNE:TriangleNW:TriangleSE:TriangleSW
-Slap:TriangleE:TriangleN:TriangleS:TriangleW
+Lvl1-1:TriangleSW:ParallelogramSENW:TriangleNELvl1-2:TriangleNW:TriangleSE:TriangleSW:TriangleNE:DiamondLvl1-3:TriangleN:TriangleE:BigTriangleNELvl1-4:TriangleSE:TriangleNE:TrapezeELvl2-1:ParallelogramNWSE:TriangleE:BigTriangleNE:TrapezeNLvl2-2:TrapezeW:Triangle NW:Triangle NW:TriangleN:ParallelogramSNLvl2-3:TriangleNW:TriangleNE:TriangleW:Diamond:TriangleN:TriangleELvl3-1:TriangleSW:TriangleN:Diamond:TriangleE:TriangleNE:TriangleS:TriangleW:ParallelogramSWNE:ParallelogramSENW
