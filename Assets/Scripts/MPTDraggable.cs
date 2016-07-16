@@ -75,7 +75,7 @@ public class MPTDraggable : MonoBehaviour
             transform.position = new Vector3(position.x, position.y, 0.0f);
         }
 
-        if (beenDragged != null)
+        if (currentlyDragged && beenDragged != null)
         {
             beenDragged();
         }

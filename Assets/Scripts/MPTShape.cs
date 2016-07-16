@@ -33,6 +33,8 @@ public class MPTShape : MonoBehaviour
     public bool canDrop;
     public int miniTrianglesCount;
 
+    private Vector3 initialScale;
+
     void Start()
     {
         draggable = GetComponent<MPTDraggable>();
@@ -130,6 +132,12 @@ public class MPTShape : MonoBehaviour
         CheckCanDrop();
     }
 
+    public void Init()
+    {
+        initialScale = transform.localScale;
+        transform.localScale = initialScale / 2.0f;
+    }
+
     private void CheckCanDrop()
     {
         canDrop = true;
@@ -152,6 +160,7 @@ public class MPTShape : MonoBehaviour
 
     public void AfterDrag()
     {
+        transform.localScale = initialScale;
         if (isOnGrid)
         {
             transform.position = new Vector3(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.y + 1), transform.position.z);
@@ -187,6 +196,7 @@ public class MPTShape : MonoBehaviour
         else
         {
             transform.localPosition = Vector3.zero;
+            transform.localScale = initialScale / 2.0f;
         }
     }
 
