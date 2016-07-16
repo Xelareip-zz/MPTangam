@@ -154,15 +154,21 @@ public class MPTGrid : MonoBehaviour
         int shapeToKeep = Random.Range(0, finalSquare.Count);
 
         int multiplier = 1;
+        int highestMultiplier = 0;
 
         foreach (MPTShape currentShape in finalSquare)
         {
             multiplier += currentShape.multiplier;
+            highestMultiplier = Mathf.Max(currentShape.multiplier);
         }
 
         foreach (MPTShape currentShape in finalSquare)
         {
             currentShape.Consume(multiplier, shapeToKeep == 0);
+            if (shapeToKeep == 0)
+            {
+                currentShape.SetMultiplier(highestMultiplier + 1);
+            }
             --shapeToKeep;
         }
     }

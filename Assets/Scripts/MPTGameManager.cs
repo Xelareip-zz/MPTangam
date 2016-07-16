@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
 public class MPTGameManager : MonoBehaviour
 {
@@ -27,6 +28,8 @@ public class MPTGameManager : MonoBehaviour
     public int score;
     public int currentTopScore;
     public int trashPrice;
+
+    public List<Color> multiplierColors;
 
     void Start()
     {

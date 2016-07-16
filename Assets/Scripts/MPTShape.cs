@@ -197,10 +197,20 @@ public class MPTShape : MonoBehaviour
         {
             MPTShapeManager.Instance.UnregisterShape(this);
             Destroy(gameObject);
-        }
+        }/*
         else
         {
             multiplier += currentMultiplier;
+        }*/
+    }
+
+    public void SetMultiplier(int newMultiplier)
+    {
+        if (newMultiplier < MPTGameManager.Instance.multiplierColors.Count)
+        {
+            multiplier = newMultiplier;
+            SpriteRenderer renderer = GetComponent<SpriteRenderer>();
+            renderer.color = MPTGameManager.Instance.multiplierColors[multiplier];
         }
     }
 }
