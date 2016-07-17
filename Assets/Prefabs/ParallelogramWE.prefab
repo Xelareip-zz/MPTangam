@@ -63,10 +63,10 @@ PolygonCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Points:
     m_Paths:
-    - - {x: -0.80494934, y: 0.86368114}
-      - {x: -2.6563807, y: -0.8758495}
-      - {x: 0.8962842, y: -0.9109693}
-      - {x: 2.7010598, y: 0.887404}
+    - - {x: -0.862222, y: 0.9209543}
+      - {x: -2.7995632, y: -0.9522137}
+      - {x: 0.93446636, y: -0.93960565}
+      - {x: 2.8442433, y: 0.95422244}
 --- !u!114 &11432738
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -81,11 +81,12 @@ MonoBehaviour:
   mainSprite: {fileID: 0}
   polygonCollider: {fileID: 6001598}
   draggable: {fileID: 0}
-  weight: 2
+  weight: 0
   multiplier: 0
   isOnGrid: 0
   isFullyInGrid: 0
   canDrop: 0
+  hasBeenDropped: 0
   miniTrianglesCount: 0
 --- !u!114 &11466700
 MonoBehaviour:

@@ -63,10 +63,10 @@ PolygonCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Points:
     m_Paths:
-    - - {x: -0.80494934, y: 0.86368114}
-      - {x: -2.6563807, y: -0.8758495}
-      - {x: 0.8962842, y: -0.9109693}
-      - {x: 2.7010598, y: 0.887404}
+    - - {x: -0.86786354, y: 0.9014291}
+      - {x: -2.7947915, y: -0.9639295}
+      - {x: 0.90886754, y: -0.9613008}
+      - {x: 2.8143053, y: 0.93773556}
 --- !u!114 &11404750
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -98,6 +98,7 @@ MonoBehaviour:
   isOnGrid: 0
   isFullyInGrid: 0
   canDrop: 0
+  hasBeenDropped: 0
   miniTrianglesCount: 0
 --- !u!212 &21223772
 SpriteRenderer:
