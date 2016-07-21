@@ -51,7 +51,7 @@ public class MPTGameManager : MonoBehaviour
         MPTSpawner.Instance.SpawnNew();
     }
     
-    void Loose()
+    public void Loose()
     {
         looseScreen.SetActive(true);
     }

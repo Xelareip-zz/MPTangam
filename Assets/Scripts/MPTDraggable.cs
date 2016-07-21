@@ -60,7 +60,7 @@ public class MPTDraggable : MonoBehaviour
             return;
         }
 
-        position = MPHUtils.ScreenToWorld(position);
+        position = MPTUtils.ScreenToWorld(position);
         
         if (coll.OverlapPoint(position))
         {

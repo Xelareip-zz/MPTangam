@@ -189,16 +189,98 @@ public class MPTShape : MonoBehaviour
         }
     }
 
+    public bool CheckGridHasSpace()
+    {
+        float xStart = MPTGrid.Instance.transform.position.x - MPTGrid.Instance.width / 2.0f;
+        float yStart = MPTGrid.Instance.transform.position.y + MPTGrid.Instance.height / 2.0f;
+
+        for (int gridX = 0; gridX <= MPTGrid.Instance.width; ++gridX)
+        {
+            for (int gridY = 0; gridY <= MPTGrid.Instance.height; ++gridY)
+            {
+                Vector2 centerPosition = new Vector2(xStart + gridX, yStart - gridY);
+                Vector2[] points = new Vector2[polygonCollider.points.Length];
+
+                for (int pointId = 0; pointId < points.Length; ++pointId)
+                {
+                    Vector2 localPos = transform.rotation * new Vector2(
+                        (polygonCollider.offset.x + polygonCollider.points[pointId].x) * initialScale.x,
+                        (polygonCollider.offset.y + polygonCollider.points[pointId].y) * initialScale.y);
+                    Vector2 loopWorldPointPos = localPos + centerPosition;
+                    points[pointId] = loopWorldPointPos;
+                }
+                bool notInGrid = false;
+                foreach (Vector2 point in points)
+                {
+                    if (MPTGrid.Instance.coll.OverlapPoint(point) == false)
+                    {
+                        notInGrid = true;
+                        break;
+                    }
+                }
+                if (notInGrid)
+                {
+                    continue;
+                }
+
+                bool shapeWasHit = false;
+
+                foreach (MPTShape current in MPTShapeManager.Instance.listOfShapes)
+                {
+                    if (current == this || current.hasBeenDropped == false)
+                    {
+                        continue;
+                    }
+                    else
+                    {
+                        Vector2[] currentPoints = new Vector2[current.polygonCollider.points.Length];
+                        for (int pointId = 0; pointId < currentPoints.Length; ++pointId)
+                        {
+                            Vector2 localPosCurrent = current.transform.rotation * new Vector2(
+                                (current.polygonCollider.offset.x + current.polygonCollider.points[pointId].x) * current.transform.localScale.x,
+                                (current.polygonCollider.offset.y + current.polygonCollider.points[pointId].y) * current.transform.localScale.y);
+                            Vector2 worldPointPosCurrent = new Vector2(
+                                current.transform.position.x,
+                                current.transform.position.y) + localPosCurrent;
+                            currentPoints[pointId] = worldPointPosCurrent;
+                        }
+
+                        for (int i = 0; i < points.Length && shapeWasHit == false; ++i)
+                        {
+                            for (int j = 0; j < currentPoints.Length; ++j)
+                            {
+                                if (MPTUtils.SegmentIntersect(points[i], points[(i + 1) % points.Length], currentPoints[j], currentPoints[(j + 1) % currentPoints.Length]))
+                                {
+                                    shapeWasHit = true;
+                                    break;
+                                }
+                            }
+                        }
+                        if (shapeWasHit)
+                        {
+                            break;
+                        }
+                    }
+                }
+                if (shapeWasHit == false)
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     public void AfterDrop()
     {
         CheckCanDrop();
         if (isOnGrid && isFullyInGrid && canDrop)
         {
             Destroy(draggable);
+            hasBeenDropped = true;
             MPTSpawner.Instance.ShapeDropped(this.gameObject);
             MPTSpawner.Instance.SpawnNew();
             MPTGrid.Instance.ShapeDropped(this);
-            hasBeenDropped = true;
         }
         else
         {

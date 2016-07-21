@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.Analytics;
 
 public class MPTSpawner : MonoBehaviour
 {
@@ -33,6 +34,7 @@ public class MPTSpawner : MonoBehaviour
 
     void Start()
     {
+        Analytics.SetUserGender(Gender.Male);
         squaresDone = 0;
         instance = this;
         spawnablesDict = new Dictionary<string, GameObject>();
@@ -201,6 +203,14 @@ public class MPTSpawner : MonoBehaviour
     public void SpawnNew()
     {
         SpawnNewSequence();
+        for (int shapeId = 0; shapeId < spawnedShapes.Length; ++shapeId)
+        {
+            if (spawnedShapes[shapeId] == null || spawnedShapes[shapeId].GetComponent<MPTShape>().CheckGridHasSpace())
+            {
+                return;
+            }
+        }
+        MPTGameManager.Instance.Loose();
         return;
         /*
         UpdateWeights();
