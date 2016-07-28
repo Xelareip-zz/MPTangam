@@ -168,10 +168,6 @@ public class MPTShape : MonoBehaviour
         transform.position = new Vector3(transform.position.x, transform.position.y, draggable.initialPos.z - 1);
         transform.localScale = initialScale;
         UpdateColor();
-        if (isOnGrid)
-        {
-            transform.position = new Vector3(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.y + 1), transform.position.z);
-        }
 
         isFullyInGrid = true;
         foreach (Vector2 point in polygonCollider.points)
@@ -187,6 +183,11 @@ public class MPTShape : MonoBehaviour
                 isFullyInGrid = false;
                 break;
             }
+        }
+
+        if (isFullyInGrid)
+        {
+            transform.position = new Vector3(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.y), transform.position.z);
         }
     }
 
