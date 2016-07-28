@@ -238,10 +238,11 @@ public class MPTSpawner : MonoBehaviour
         {
             if (spawnedShapes[spawnId] == null)
             {
-                GameObject go = Instantiate<GameObject>(selectedGO);
+                GameObject go = Instantiate(selectedGO);
                 go.transform.SetParent(spawnPoints[spawnId].transform);
                 go.transform.localPosition = new Vector3(0.0f, 0.0f, 0.0f);
                 go.GetComponent<MPTShape>().Init();
+                go.GetComponent<MPTDraggable>().additionalColliders.Add(spawnPoints[spawnId].GetComponent<Collider2D>());
                 spawnedShapes[spawnId] = go;
                 //nextShape.GetComponent<MPTDraggable>().enabled = false;
                 return;

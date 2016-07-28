@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System;
+using System.Collections.Generic;
 
 [RequireComponent(typeof(Collider2D))]
 public class MPTDraggable : MonoBehaviour
@@ -7,6 +8,8 @@ public class MPTDraggable : MonoBehaviour
     public bool currentlyDragged;
     private Vector3 initialPos;
     private Collider2D coll;
+
+    public List<Collider2D> additionalColliders;
 
     public event Action beenDragged;
     public event Action beenDropped;
@@ -67,6 +70,17 @@ public class MPTDraggable : MonoBehaviour
             if (justClicked)
             {
                 currentlyDragged = true;
+            }
+        }
+
+        foreach (Collider2D currColl in additionalColliders)
+        {
+            if (currColl.OverlapPoint(position))
+            {
+                if (justClicked)
+                {
+                    currentlyDragged = true;
+                }
             }
         }
 
