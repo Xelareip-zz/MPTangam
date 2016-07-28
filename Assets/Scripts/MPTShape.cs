@@ -316,7 +316,7 @@ public class MPTShape : MonoBehaviour
 
     public void UpdateColor()
     {
-        if (hasBeenDropped || canDrop)
+        if ((hasBeenDropped || canDrop) && (isFullyInGrid || draggable.currentlyDragged == false))
         {
             spriteRenderer.color = MPTGameManager.Instance.multiplierColors[multiplier];
         }
