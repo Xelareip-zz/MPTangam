@@ -165,6 +165,7 @@ public class MPTShape : MonoBehaviour
 
     public void AfterDrag()
     {
+        transform.position = new Vector3(transform.position.x, transform.position.y, draggable.initialPos.z - 1);
         transform.localScale = initialScale;
         UpdateColor();
         if (isOnGrid)
@@ -273,6 +274,7 @@ public class MPTShape : MonoBehaviour
 
     public void AfterDrop()
     {
+        transform.position = new Vector3(transform.position.x, transform.position.y, draggable.initialPos.z);
         CheckCanDrop();
         if (isOnGrid && isFullyInGrid && canDrop)
         {

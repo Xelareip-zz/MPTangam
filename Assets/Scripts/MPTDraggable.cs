@@ -6,7 +6,7 @@ using System.Collections.Generic;
 public class MPTDraggable : MonoBehaviour
 {
     public bool currentlyDragged;
-    private Vector3 initialPos;
+    public Vector3 initialPos;
     private Collider2D coll;
 
     public List<Collider2D> additionalColliders;
