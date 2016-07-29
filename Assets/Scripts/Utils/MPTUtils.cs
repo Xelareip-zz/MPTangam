@@ -64,9 +64,17 @@ public class MPTUtils
 
         for (int i = 1; i < polygon.Length; ++i)
         {
-            if (firstRes * Vector3.Cross(polygon[i % polygon.Length] - polygon[i], point - polygon[i]).z < 0)
+            float crossRes = Vector3.Cross(polygon[i % polygon.Length] - polygon[i], point - polygon[i]).z;
+            if (firstRes * crossRes < 0)
             {
                 return true;
+            }
+            else if (crossRes == 0.0f)
+            {
+                if ((point.x - polygon[i % polygon.Length].x) * (point.x - polygon[i].x) <= 0)
+                {
+                    return true;
+                }
             }
         }
         return false;
