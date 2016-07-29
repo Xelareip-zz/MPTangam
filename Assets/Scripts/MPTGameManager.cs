@@ -178,4 +178,17 @@ public class MPTGameManager : MonoBehaviour
         isPaused = false;
         pauseUI.SetActive(false);
     }
+
+    public void SendEmail()
+    {
+        string email = "thestonegoatgames@gmail.com";
+        string subject = MyEscapeURL("In game contact");
+        string body = MyEscapeURL("");
+        Application.OpenURL("mailto:" + email + "?subject=" + subject + "&body=" + body);
+    }
+
+    string MyEscapeURL (string url)
+    {
+            return WWW.EscapeURL(url).Replace("+", "%20");
+    }
 }
