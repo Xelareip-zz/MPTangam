@@ -57,4 +57,50 @@ public class MPTUtils
         intersectionTest3 = (intersection.y - seg1Start.y) * (intersection.y - seg1End.y);
         return intersectionTest0 <= 0 && intersectionTest1 <= 0 && intersectionTest2 <= 0 && intersectionTest3 <= 0;
     }
+
+    public static bool PolygonContains(Vector2[] polygon, Vector2 point)
+    {
+        float firstRes = Vector3.Cross(polygon[1] - polygon[0], point - polygon[0]).z;
+
+        for (int i = 1; i < polygon.Length; ++i)
+        {
+            if (firstRes * Vector3.Cross(polygon[i % polygon.Length] - polygon[i], point - polygon[i]).z < 0)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static bool PolygonsIntersect(Vector2[] polygon0, Vector2[] polygon1)
+    {
+        for (int i = 0; i < polygon0.Length; ++i)
+        {
+            if (PolygonContains(polygon1, polygon0[i]))
+            {
+                return true;
+            }
+        }
+
+        for (int i = 0; i < polygon1.Length; ++i)
+        {
+            if (PolygonContains(polygon0, polygon1[i]))
+            {
+                return true;
+            }
+        }
+
+        for (int i = 0; i < polygon0.Length; ++i)
+        {
+            for (int j = 0; j < polygon1.Length; ++j)
+            {
+                if (MPTUtils.SegmentIntersect(polygon0[i], polygon0[(i + 1) % polygon0.Length], polygon1[j], polygon1[(j + 1) % polygon1.Length]))
+                {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
 }

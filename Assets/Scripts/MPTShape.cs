@@ -235,6 +235,19 @@ public class MPTShape : MonoBehaviour
                     }
                     else
                     {
+                        // current contains this
+                        for (int i = 0; i < points.Length; ++i)
+                        {
+                            if (current.polygonCollider.OverlapPoint(points[i]))
+                            {
+                                shapeWasHit = true;
+                            }
+                        }
+                        if (shapeWasHit)
+                        {
+                            break;
+                        }
+
                         Vector2[] currentPoints = new Vector2[current.polygonCollider.points.Length];
                         for (int pointId = 0; pointId < currentPoints.Length; ++pointId)
                         {
@@ -247,6 +260,26 @@ public class MPTShape : MonoBehaviour
                             currentPoints[pointId] = worldPointPosCurrent;
                         }
 
+                        if (MPTUtils.PolygonsIntersect(points, currentPoints))
+                        {
+                            shapeWasHit = true;
+                        }
+                        /*
+                        //this contains current
+                        for (int j = 0; j < currentPoints.Length; ++j)
+                        {
+                            if (polygonCollider.OverlapPoint(currentPoints[j] + new Vector2(transform.position.x, transform.position.y) - centerPosition))
+                            {
+                                shapeWasHit = true;
+                                break;
+                            }
+                        }
+                        if (shapeWasHit)
+                        {
+                            break;
+                        }
+
+                        // some intersections
                         for (int i = 0; i < points.Length && shapeWasHit == false; ++i)
                         {
                             for (int j = 0; j < currentPoints.Length; ++j)
@@ -257,7 +290,7 @@ public class MPTShape : MonoBehaviour
                                     break;
                                 }
                             }
-                        }
+                        }*/
                         if (shapeWasHit)
                         {
                             break;
