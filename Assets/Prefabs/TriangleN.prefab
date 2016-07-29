@@ -77,13 +77,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38e38b41494b78b43b7643013a6eb11c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  nextRotationPrefab: {fileID: 183774, guid: a592b6aff85e84a1fbf9c56065433e2e, type: 2}
   mainSprite: {fileID: 0}
   polygonCollider: {fileID: 6051460}
   draggable: {fileID: 0}
   weight: 3
+  multiplier: 0
   isOnGrid: 0
   isFullyInGrid: 0
   canDrop: 0
+  hasBeenDropped: 0
   miniTrianglesCount: 0
 --- !u!114 &11448536
 MonoBehaviour:
@@ -97,6 +100,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentlyDragged: 0
+  initialPos: {x: 0, y: 0, z: 0}
+  additionalColliders: []
 --- !u!212 &21220706
 SpriteRenderer:
   m_ObjectHideFlags: 1

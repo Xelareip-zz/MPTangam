@@ -63,9 +63,9 @@ PolygonCollider2D:
   m_Offset: {x: -1, y: -1}
   m_Points:
     m_Paths:
-    - - {x: 0.1397419, y: 1.9380012}
-      - {x: 1.9182737, y: 0.18670219}
-      - {x: 1.9153268, y: 1.9253354}
+    - - {x: 0.12177467, y: 1.955968}
+      - {x: 1.9542081, y: 0.13280052}
+      - {x: 1.960246, y: 1.9522862}
 --- !u!114 &11420046
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -78,6 +78,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentlyDragged: 0
+  initialPos: {x: 0, y: 0, z: 0}
+  additionalColliders: []
 --- !u!114 &11429636
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -89,6 +91,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38e38b41494b78b43b7643013a6eb11c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  nextRotationPrefab: {fileID: 190052, guid: 56a447e4c98df483dbc64488cc41659f, type: 2}
   mainSprite: {fileID: 0}
   polygonCollider: {fileID: 6032690}
   draggable: {fileID: 0}
@@ -97,6 +100,7 @@ MonoBehaviour:
   isOnGrid: 0
   isFullyInGrid: 0
   canDrop: 0
+  hasBeenDropped: 0
   miniTrianglesCount: 0
 --- !u!212 &21295390
 SpriteRenderer:

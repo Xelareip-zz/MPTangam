@@ -19,6 +19,8 @@ public class TRIANGLE_POS
 
 public class MPTShape : MonoBehaviour
 {
+    public GameObject nextRotationPrefab;
+
     public Sprite mainSprite;
     public PolygonCollider2D polygonCollider;
     public MPTDraggable draggable;

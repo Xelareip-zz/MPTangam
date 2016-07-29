@@ -26,6 +26,7 @@ public class MPTSpawner : MonoBehaviour
     private Dictionary<string, float> _sequenceToWeight;
     public string currentSequenceName;
     public List<string> currentSequence;
+    public int currentRotation;
     private int squaresDone;
     private float totalWeights;
 
@@ -172,6 +173,7 @@ public class MPTSpawner : MonoBehaviour
 
     private void PickSequence()
     {
+        currentRotation = Random.Range(0, 4);
         float totalWeightsCopy = Random.Range(0.0f, totalWeights);
         
         foreach (string sequence in _sequences.Keys)
@@ -238,6 +240,11 @@ public class MPTSpawner : MonoBehaviour
         {
             if (spawnedShapes[spawnId] == null)
             {
+                for (int i = 0; i < currentRotation; ++i)
+                {
+                    selectedGO = selectedGO.GetComponent<MPTShape>().nextRotationPrefab;
+                }
+                
                 GameObject go = Instantiate(selectedGO);
                 go.transform.SetParent(spawnPoints[spawnId].transform);
                 go.transform.localPosition = new Vector3(0.0f, 0.0f, 0.0f);
