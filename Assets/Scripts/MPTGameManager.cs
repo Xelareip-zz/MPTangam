@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using UnityEngine.Analytics;
 
 public class MPTGameManager : MonoBehaviour
 {
@@ -45,6 +46,7 @@ public class MPTGameManager : MonoBehaviour
 
     public void StartGame()
     {
+        MPTPlayer.Instance.NewGameStarted();
         Destroy(startUI);
         MPTSpawner.Instance.SpawnNew();
         MPTSpawner.Instance.SpawnNew();
@@ -59,7 +61,10 @@ public class MPTGameManager : MonoBehaviour
     public void ShapeConsumed(MPTShape shape, int multiplier)
     {
         score += multiplier;
-        currentTopScore = Mathf.Max(score, currentTopScore);
+        if (score > currentTopScore)
+        {
+            currentTopScore = score;
+        }
         UpdateScoreText();
     }
 
@@ -116,6 +121,7 @@ public class MPTGameManager : MonoBehaviour
 
     public void Restart()
     {
+        MPTPlayer.Instance.NewGameStarted();
         score = 0;
         trashPrice = 1;
         UpdateScoreText();
@@ -189,6 +195,17 @@ public class MPTGameManager : MonoBehaviour
 
     string MyEscapeURL (string url)
     {
-            return WWW.EscapeURL(url).Replace("+", "%20");
+        return WWW.EscapeURL(url).Replace("+", "%20");
+    }
+    
+    void OnDestroy()
+    {
+#if !UNITY_EDITOR
+        Analytics.CustomEvent("GameOver", new Dictionary<string, object>
+        {
+            { "TopScore", MPTPlayer.Instance.GetBestScore() },
+            { "GamesPlayed", MPTPlayer.Instance.GetGamesStarted() }
+        });
+#endif
     }
 }

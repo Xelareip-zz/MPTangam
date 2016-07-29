@@ -18,6 +18,7 @@ public class MPTPlayer
     }
 
     private int _bestScore = 0;
+    private int _gamesPlayed = 0;
 
     private MPTPlayer()
     {
@@ -36,6 +37,16 @@ public class MPTPlayer
             _bestScore = score;
             Save();
         }
+    }
+
+    public void NewGameStarted()
+    {
+        ++_gamesPlayed;
+    }
+
+    public int GetGamesStarted()
+    {
+        return _gamesPlayed;
     }
 
     private void Load()
@@ -58,6 +69,9 @@ public class MPTPlayer
                 case "bestScore":
                     _bestScore = int.Parse(lineSplit[1]);
                     break;
+                case "gamesPlayed":
+                    _gamesPlayed = int.Parse(lineSplit[1]);
+                    break;
                 default:
                     break;
             }
@@ -70,6 +84,7 @@ public class MPTPlayer
         string saveString = "";
 
         saveString += "bestScore:" + _bestScore + "\n";
+        saveString += "gamesPlayed:" + _gamesPlayed + "\n";
 
         Directory.GetParent(Application.persistentDataPath).Create();
         StreamWriter writer = new StreamWriter(Application.persistentDataPath + "/Save.dat");
