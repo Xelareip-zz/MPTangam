@@ -284,6 +284,7 @@ public class MPTSpawner : MonoBehaviour
 
     public void Clear()
     {
+        currentSequence.Clear();
         for (int shapeId = 0; shapeId < spawnedShapes.Length; ++shapeId)
         {
             spawnedShapes[shapeId] = null;
