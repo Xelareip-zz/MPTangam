@@ -25,6 +25,13 @@ public class MPTDraggable : MonoBehaviour
     {
         if (MPTGameManager.Instance.isPaused)
         {
+            if (currentlyDragged)
+            {
+                if (beenDropped != null)
+                {
+                    beenDropped();
+                }
+            }
             currentlyDragged = false;
         }
         Vector2 initPosition = new Vector2(float.MinValue, float.MinValue);
