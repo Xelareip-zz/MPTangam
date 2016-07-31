@@ -315,7 +315,9 @@ public class MPTShape : MonoBehaviour
         if (isOnGrid && isFullyInGrid && canDrop)
         {
             //Destroy(draggable);
-            draggable.enabled = false;
+            //draggable.enabled = false;
+            draggable.Reinit();
+            draggable.additionalColliders.Clear();
             hasBeenDropped = true;
             MPTSpawner.Instance.ShapeDropped(this.gameObject);
             //MPTSpawner.Instance.SpawnNew();
@@ -323,8 +325,15 @@ public class MPTShape : MonoBehaviour
         }
         else
         {
-            transform.localPosition = Vector3.zero;
-            transform.localScale = initialScale / 2.0f;
+            transform.position = draggable.initialPos;
+            if (draggable.initialPos == draggable.transform.parent.position)
+            {
+                transform.localScale = initialScale / 2.0f;
+            }
+            else
+            {
+                transform.localScale = initialScale;
+            }
         }
     }
 
@@ -353,7 +362,7 @@ public class MPTShape : MonoBehaviour
 
     public void UpdateColor()
     {
-        if ((hasBeenDropped || canDrop) && (isFullyInGrid || draggable.currentlyDragged == false))
+        if (((hasBeenDropped && draggable.currentlyDragged == false) || canDrop) && (isFullyInGrid || draggable.currentlyDragged == false))
         {
             spriteRenderer.color = MPTGameManager.Instance.multiplierColors[multiplier];
         }

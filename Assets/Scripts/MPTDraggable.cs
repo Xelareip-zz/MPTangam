@@ -18,6 +18,11 @@ public class MPTDraggable : MonoBehaviour
     {
         coll = GetComponent<Collider2D>();
         currentlyDragged = false;
+        Reinit();
+    }
+
+    public void Reinit()
+    {
         initialPos = transform.position;
     }
 

@@ -312,6 +312,7 @@ public class MPTSpawner : MonoBehaviour
                 shapeToKeep.gameObject.GetComponent<MPTShape>().Init();
                 shapeToKeep.draggable.additionalColliders.Clear();
                 shapeToKeep.draggable.additionalColliders.Add(spawnPoints[spawnId].GetComponent<Collider2D>());
+                shapeToKeep.draggable.initialPos = shapeToKeep.gameObject.transform.parent.position;
                 spawnedShapes[spawnId] = shapeToKeep.gameObject;
                 return;
             }
