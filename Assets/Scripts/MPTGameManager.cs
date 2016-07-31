@@ -15,7 +15,7 @@ public class MPTGameManager : MonoBehaviour
         }
     }
 
-    public Text scoreText;
+    public MPTDelayedCounter scoreText;
     public Text bestScoreText;
     public Text scoreFinalText;
     public Text bestScoreFinalText;
@@ -72,7 +72,7 @@ public class MPTGameManager : MonoBehaviour
     {
         MPTPlayer.Instance.UpdateBestScore(score);
         UpdateBestScoreText();
-        scoreText.text = "" + score;
+        scoreText.targetScore = score;
         scoreFinalText.text = "" + score;
 }
 
