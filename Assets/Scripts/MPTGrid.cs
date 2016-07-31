@@ -43,6 +43,17 @@ public class MPTGrid : MonoBehaviour
         float yStart = transform.position.y + height / 2.0f - 0.25f;
 
         int miniTrianglesCount = 0;
+        
+        for (int shapeX = 0; shapeX < width; ++shapeX)
+        {
+            for (int shapeY = 0; shapeY < height * 2; ++shapeY)
+            {
+                if (shapesTab[shapeY, shapeX] == shape)
+                {
+                    shapesTab[shapeY, shapeX] = null;
+                }
+            }
+        }
 
         for (int shapeX = 0; shapeX < width; ++shapeX)
         {
