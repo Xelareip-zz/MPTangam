@@ -73,7 +73,7 @@ public class MPTGameManager : MonoBehaviour
         MPTPlayer.Instance.UpdateBestScore(score);
         UpdateBestScoreText();
         scoreText.text = "" + score;
-        scoreFinalText.text = "" + currentTopScore;
+        scoreFinalText.text = "" + score;
 }
 
     public void UpdateBestScoreText()
