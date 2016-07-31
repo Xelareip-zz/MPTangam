@@ -153,6 +153,11 @@ public class MPTGrid : MonoBehaviour
         {
             MPTSpawner.Instance.SquareDone();
         }
+        else
+        {
+            MPTSpawner.Instance.SpawnNew();
+            return;
+        }
         int shapeToKeep = Random.Range(0, finalSquare.Count);
 
         int multiplier = 1;
@@ -165,14 +170,26 @@ public class MPTGrid : MonoBehaviour
         }
 
         int shapeToKeepPosition = shapeToKeep;
+        /*shapeToKeep = -1;
+        
+        int multipliedShape = Random.Range(0, MPTSpawner.Instance.spawnedShapes.Length);
+
+        MPTSpawner.Instance.spawnedShapes[multipliedShape].GetComponent<MPTShape>().multiplier = highestMultiplier + 1;
+        GameObject spawnTextMultiplier = Instantiate<GameObject>(spawnText);
+        spawnTextMultiplier.GetComponent<TextMesh>().text = "x " + (highestMultiplier + 2);
+        spawnTextMultiplier.transform.position = MPTSpawner.Instance.spawnedShapes[multipliedShape].transform.position + Vector3.back;*/
+
         foreach (MPTShape currentShape in finalSquare)
         {
             currentShape.Consume(multiplier, shapeToKeep == 0);
+            
             if (shapeToKeep == 0)
             {
+                MPTSpawner.Instance.SetNextShape(currentShape);
                 currentShape.SetMultiplier(highestMultiplier + 1);
                 GameObject spawnTextMultiplier = Instantiate<GameObject>(spawnText);
                 spawnTextMultiplier.GetComponent<TextMesh>().text = "x " + (highestMultiplier + 2);
+                spawnTextMultiplier.transform.parent = currentShape.transform;
                 spawnTextMultiplier.transform.position = currentShape.transform.position + Vector3.back;
             }
             else

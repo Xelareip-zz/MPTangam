@@ -37,7 +37,7 @@ public class MPTShape : MonoBehaviour
     public bool hasBeenDropped;
     public int miniTrianglesCount;
 
-    private Vector3 initialScale;
+    public Vector3 initialScale;
 
     void Start()
     {
@@ -314,10 +314,11 @@ public class MPTShape : MonoBehaviour
         CheckCanDrop();
         if (isOnGrid && isFullyInGrid && canDrop)
         {
-            Destroy(draggable);
+            //Destroy(draggable);
+            draggable.enabled = false;
             hasBeenDropped = true;
             MPTSpawner.Instance.ShapeDropped(this.gameObject);
-            MPTSpawner.Instance.SpawnNew();
+            //MPTSpawner.Instance.SpawnNew();
             MPTGrid.Instance.ShapeDropped(this);
         }
         else

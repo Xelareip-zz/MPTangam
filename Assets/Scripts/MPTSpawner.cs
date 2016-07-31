@@ -90,9 +90,7 @@ public class MPTSpawner : MonoBehaviour
                 _sequences[shapeName].Add(lineSplit[i]);
             }
         }
-
-
-
+        
         saveString = sequencesWeightsTextAsset.text;
         saveString = saveString.Replace("\r", "\n");
         saveString = saveString.Replace("\n\n", "\n");
@@ -295,6 +293,28 @@ public class MPTSpawner : MonoBehaviour
         for (int shapeId = 0; shapeId < spawnedShapes.Length; ++shapeId)
         {
             spawnedShapes[shapeId] = null;
+        }
+    }
+
+    public void SetNextShape(MPTShape shapeToKeep)
+    {
+        shapeToKeep.draggable.enabled = true;
+        for (int spawnId = 0; spawnId < spawnedShapes.Length; ++spawnId)
+        {
+            if (spawnedShapes[spawnId] == null)
+            {
+                shapeToKeep.gameObject.transform.SetParent(spawnPoints[spawnId].transform);
+                MPTKeepShapeAnimation anim = shapeToKeep.gameObject.AddComponent<MPTKeepShapeAnimation>();
+                anim.animationTime = 1.0f;
+                anim.targetPosition = shapeToKeep.gameObject.transform.parent.position;
+                anim.targetScale = shapeToKeep.initialScale / 2.0f;
+                //shapeToKeep.gameObject.transform.localPosition = new Vector3(0.0f, 0.0f, 0.0f);
+                shapeToKeep.gameObject.GetComponent<MPTShape>().Init();
+                shapeToKeep.draggable.additionalColliders.Clear();
+                shapeToKeep.draggable.additionalColliders.Add(spawnPoints[spawnId].GetComponent<Collider2D>());
+                spawnedShapes[spawnId] = shapeToKeep.gameObject;
+                return;
+            }
         }
     }
 }
