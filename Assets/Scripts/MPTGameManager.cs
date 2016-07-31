@@ -15,6 +15,8 @@ public class MPTGameManager : MonoBehaviour
         }
     }
 
+    public GameObject fancyScorePrefab;
+
     public MPTDelayedCounter scoreText;
     public Text bestScoreText;
     public Text scoreFinalText;

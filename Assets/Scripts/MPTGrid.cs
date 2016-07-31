@@ -198,10 +198,10 @@ public class MPTGrid : MonoBehaviour
             {
                 MPTSpawner.Instance.SetNextShape(currentShape);
                 currentShape.SetMultiplier(highestMultiplier + 1);
-                GameObject spawnTextMultiplier = Instantiate<GameObject>(spawnText);
+                /*GameObject spawnTextMultiplier = Instantiate<GameObject>(spawnText);
                 spawnTextMultiplier.GetComponent<TextMesh>().text = "x " + (highestMultiplier + 2);
-                spawnTextMultiplier.transform.parent = currentShape.transform;
-                spawnTextMultiplier.transform.position = currentShape.transform.position + Vector3.back;
+                spawnTextMultiplier.transform.parent = MPTGrid.Instance.transform;
+                spawnTextMultiplier.transform.position = currentShape.transform.position + Vector3.back;*/
             }
             else
             {

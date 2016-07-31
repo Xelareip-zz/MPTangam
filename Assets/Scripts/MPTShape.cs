@@ -340,6 +340,11 @@ public class MPTShape : MonoBehaviour
     public void Consume(int currentMultiplier, bool keepShape)
     {
         MPTGameManager.Instance.ShapeConsumed(this, currentMultiplier);
+        GameObject scorePrefab = Instantiate(MPTGameManager.Instance.fancyScorePrefab);
+        scorePrefab.GetComponent<TextMesh>().text = "+" + currentMultiplier;
+        scorePrefab.GetComponent<TextMesh>().color = MPTGameManager.Instance.multiplierColors[currentMultiplier];
+        scorePrefab.transform.position = transform.position;
+        
         if (keepShape == false)
         {
             MPTShapeManager.Instance.UnregisterShape(this);
