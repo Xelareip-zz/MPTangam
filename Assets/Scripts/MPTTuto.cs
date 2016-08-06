@@ -18,11 +18,8 @@ public class MPTTuto : MonoBehaviour
 
     public void PageClicked()
     {
+        listOfPages[currentPage].GetComponent<Animator>().Play("ExitTuto");
         ++currentPage;
-        for (int pageId = 0; pageId < listOfPages.Count && pageId < currentPage; ++pageId)
-        {
-            listOfPages[pageId].SetActive(false);
-        }
 
         if (currentPage >= listOfPages.Count)
         {
@@ -30,6 +27,10 @@ public class MPTTuto : MonoBehaviour
             gameObject.SetActive(false);
             MPTGameManager.Instance.Resume();
             MPTPlayer.Instance.SetTutoDone(true);
+        }
+        else
+        {
+            listOfPages[currentPage].SetActive(true);
         }
     }
 }
