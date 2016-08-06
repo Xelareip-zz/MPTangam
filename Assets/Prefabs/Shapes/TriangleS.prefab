@@ -1,44 +1,44 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &105958
+--- !u!1 &160084
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 4
   m_Component:
-  - 4: {fileID: 463054}
-  - 212: {fileID: 21220706}
-  - 60: {fileID: 6051460}
-  - 50: {fileID: 5021866}
-  - 114: {fileID: 11448536}
-  - 114: {fileID: 11442928}
+  - 4: {fileID: 415252}
+  - 212: {fileID: 21232698}
+  - 60: {fileID: 6029890}
+  - 50: {fileID: 5008610}
+  - 114: {fileID: 11443384}
+  - 114: {fileID: 11474338}
   m_Layer: 8
-  m_Name: TriangleN
+  m_Name: TriangleS
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &463054
+--- !u!4 &415252
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 105958}
-  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071067}
+  m_GameObject: {fileID: 160084}
+  m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071067}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.95, y: 0.95, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!50 &5021866
+--- !u!50 &5008610
 Rigidbody2D:
   serializedVersion: 2
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 105958}
+  m_GameObject: {fileID: 160084}
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
@@ -49,12 +49,12 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!60 &6051460
+--- !u!60 &6029890
 PolygonCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 105958}
+  m_GameObject: {fileID: 160084}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
@@ -66,34 +66,12 @@ PolygonCollider2D:
     - - {x: -0.9449295, y: 1.8736318}
       - {x: -0.94091946, y: -1.9179542}
       - {x: 0.95529526, y: -0.0044751796}
---- !u!114 &11442928
+--- !u!114 &11443384
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 105958}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 38e38b41494b78b43b7643013a6eb11c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  nextRotationPrefab: {fileID: 183774, guid: a592b6aff85e84a1fbf9c56065433e2e, type: 2}
-  mainSprite: {fileID: 0}
-  polygonCollider: {fileID: 6051460}
-  draggable: {fileID: 0}
-  weight: 3
-  multiplier: 0
-  isOnGrid: 0
-  isFullyInGrid: 0
-  canDrop: 0
-  hasBeenDropped: 0
-  miniTrianglesCount: 0
---- !u!114 &11448536
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 105958}
+  m_GameObject: {fileID: 160084}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f22300138b01dd54ab82661e31f2758a, type: 3}
@@ -102,12 +80,35 @@ MonoBehaviour:
   currentlyDragged: 0
   initialPos: {x: 0, y: 0, z: 0}
   additionalColliders: []
---- !u!212 &21220706
+--- !u!114 &11474338
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 160084}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38e38b41494b78b43b7643013a6eb11c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextRotationPrefab: {fileID: 123322, guid: 929afa37b78484c4eba3012077eea6b1, type: 2}
+  mainSprite: {fileID: 0}
+  polygonCollider: {fileID: 6029890}
+  draggable: {fileID: 0}
+  weight: 3
+  multiplier: 0
+  isOnGrid: 0
+  isFullyInGrid: 0
+  canDrop: 0
+  hasBeenDropped: 0
+  miniTrianglesCount: 0
+  initialScale: {x: 0, y: 0, z: 0}
+--- !u!212 &21232698
 SpriteRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 105958}
+  m_GameObject: {fileID: 160084}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -141,5 +142,5 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 105958}
+  m_RootGameObject: {fileID: 160084}
   m_IsPrefabParent: 1
