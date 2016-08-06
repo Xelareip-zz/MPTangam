@@ -6,6 +6,8 @@ public class MPTTuto : MonoBehaviour
     public List<GameObject> listOfPages;
 
     public int currentPage;
+    public GameObject pageMarker;
+    public List<Vector3> pageMarkerPositions;
 
     public void OnEnabled()
     {
@@ -14,12 +16,14 @@ public class MPTTuto : MonoBehaviour
         {
             listOfPages[pageId].SetActive(false);
         }
+        pageMarker.transform.position = pageMarkerPositions[currentPage];
     }
 
     public void PageClicked()
     {
         listOfPages[currentPage].GetComponent<Animator>().Play("ExitTuto");
         ++currentPage;
+        pageMarker.transform.position = pageMarkerPositions[currentPage];
 
         if (currentPage >= listOfPages.Count)
         {
