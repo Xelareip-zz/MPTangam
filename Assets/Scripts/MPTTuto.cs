@@ -7,23 +7,24 @@ public class MPTTuto : MonoBehaviour
 
     public int currentPage;
     public GameObject pageMarker;
-    public List<Vector3> pageMarkerPositions;
+    public List<Transform> pageMarkerPositions;
 
-    public void OnEnabled()
+    public void OnEnable()
     {
         currentPage = 0;
-        for (int pageId = 0; pageId < listOfPages.Count; ++pageId)
+        listOfPages[0].SetActive(true);
+        listOfPages[currentPage].GetComponent<Animator>().Play("StayTuto");
+        for (int pageId = 1; pageId < listOfPages.Count; ++pageId)
         {
             listOfPages[pageId].SetActive(false);
         }
-        pageMarker.transform.position = pageMarkerPositions[currentPage];
+        pageMarker.transform.position = pageMarkerPositions[currentPage].position + Vector3.back;
     }
 
     public void PageClicked()
     {
         listOfPages[currentPage].GetComponent<Animator>().Play("ExitTuto");
         ++currentPage;
-        pageMarker.transform.position = pageMarkerPositions[currentPage];
 
         if (currentPage >= listOfPages.Count)
         {
@@ -34,7 +35,9 @@ public class MPTTuto : MonoBehaviour
         }
         else
         {
+            pageMarker.transform.position = pageMarkerPositions[currentPage].position + Vector3.back;
             listOfPages[currentPage].SetActive(true);
+            listOfPages[currentPage].GetComponent<Animator>().Play("EnterTuto");
         }
     }
 }

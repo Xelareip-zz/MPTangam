@@ -198,6 +198,7 @@ public class MPTGameManager : MonoBehaviour
     {
         isPaused = true;
         tutoUI.SetActive(true);
+        infoUI.SetActive(false);
     }
 
     public void ShowInfo()
