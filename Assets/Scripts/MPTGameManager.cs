@@ -26,7 +26,7 @@ public class MPTGameManager : MonoBehaviour
     public GameObject looseScreen;
     public GameObject debugUI;
     public GameObject startUI;
-    public GameObject pauseUI;
+    public GameObject infoUI;
     public GameObject confirmRestartUI;
     public GameObject tutoUI;
     public Transform debugPosition;
@@ -200,6 +200,12 @@ public class MPTGameManager : MonoBehaviour
         tutoUI.SetActive(true);
     }
 
+    public void ShowInfo()
+    {
+        isPaused = true;
+        infoUI.SetActive(true);
+    }
+
     public void Pause()
     {
         isPaused = true;
@@ -210,6 +216,7 @@ public class MPTGameManager : MonoBehaviour
         isPaused = false;
         confirmRestartUI.SetActive(false);
         tutoUI.SetActive(false);
+        infoUI.SetActive(false);
     }
 
     public void SendEmail()
