@@ -19,6 +19,7 @@ public class MPTPlayer
 
     private int _bestScore = 0;
     private int _gamesPlayed = 0;
+    private bool _tutoDone = false;
 
     private MPTPlayer()
     {
@@ -49,6 +50,17 @@ public class MPTPlayer
         return _gamesPlayed;
     }
 
+    public bool GetTutoDone()
+    {
+        return _tutoDone;
+    }
+
+    public void SetTutoDone(bool isDone)
+    {
+        _tutoDone = isDone;
+        Save();
+    }
+
     private void Load()
     {
         if (File.Exists(Application.persistentDataPath + "/Save.dat") == false)
@@ -72,6 +84,9 @@ public class MPTPlayer
                 case "gamesPlayed":
                     _gamesPlayed = int.Parse(lineSplit[1]);
                     break;
+                case "tutoDone":
+                    _tutoDone = bool.Parse(lineSplit[1]);
+                    break;
                 default:
                     break;
             }
@@ -85,6 +100,7 @@ public class MPTPlayer
 
         saveString += "bestScore:" + _bestScore + "\n";
         saveString += "gamesPlayed:" + _gamesPlayed + "\n";
+        saveString += "tutoDone:" + _tutoDone + "\n";
 
         Directory.GetParent(Application.persistentDataPath).Create();
         StreamWriter writer = new StreamWriter(Application.persistentDataPath + "/Save.dat");

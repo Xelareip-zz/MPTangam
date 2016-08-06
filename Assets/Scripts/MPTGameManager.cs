@@ -51,7 +51,10 @@ public class MPTGameManager : MonoBehaviour
 
     public void StartGame()
     {
-        ShowTuto();
+        if (MPTPlayer.Instance.GetTutoDone() == false)
+        {
+            ShowTuto();
+        }
         MPTPlayer.Instance.NewGameStarted();
         Destroy(startUI);
         MPTSpawner.Instance.SpawnNew();

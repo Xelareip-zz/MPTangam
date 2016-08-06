@@ -29,6 +29,7 @@ public class MPTTuto : MonoBehaviour
             currentPage = 0;
             gameObject.SetActive(false);
             MPTGameManager.Instance.Resume();
+            MPTPlayer.Instance.SetTutoDone(true);
         }
     }
 }
