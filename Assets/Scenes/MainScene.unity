@@ -1795,7 +1795,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8f4e6677655ef443a1bb9ea6ba3e88e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fancyScorePrefab: {fileID: 0}
+  fancyScorePrefab: {fileID: 182510, guid: bcf1c5d489139864bbde6bee50e2dfca, type: 2}
+  amazingPrefabs:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 122894, guid: 94b161b4a6d26684b849be639f6c1b31, type: 2}
+  - {fileID: 122894, guid: 94b161b4a6d26684b849be639f6c1b31, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   scoreText: {fileID: 1140252791}
   bestScoreText: {fileID: 1735583583}
   scoreFinalText: {fileID: 1398909662}
@@ -4411,7 +4427,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0.019607844}
+  m_BackGroundColor: {r: 0, g: 1, b: 0.13103461, a: 1}
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0

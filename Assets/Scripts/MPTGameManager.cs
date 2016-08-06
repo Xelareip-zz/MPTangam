@@ -16,6 +16,7 @@ public class MPTGameManager : MonoBehaviour
     }
 
     public GameObject fancyScorePrefab;
+    public List<GameObject> amazingPrefabs;
 
     public MPTDelayedCounter scoreText;
     public Text bestScoreText;

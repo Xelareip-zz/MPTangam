@@ -88,9 +88,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c464c6ba08ccdfd498e4b8e69df607d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0
+  speed: 1.5
   direction: {x: 0, y: 0, z: 0}
-  lifeTime: 0
+  lifeTime: 1.5
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

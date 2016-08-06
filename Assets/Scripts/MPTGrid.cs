@@ -169,6 +169,20 @@ public class MPTGrid : MonoBehaviour
             MPTSpawner.Instance.SpawnNew();
             return;
         }
+
+        GameObject amazingPrefabToSpawn = null;
+        for (int amazingPrefabId = 0; amazingPrefabId < finalSquare.Count && amazingPrefabId < MPTGameManager.Instance.amazingPrefabs.Count; ++amazingPrefabId)
+        {
+            if (MPTGameManager.Instance.amazingPrefabs[amazingPrefabId] != null)
+            {
+                amazingPrefabToSpawn = MPTGameManager.Instance.amazingPrefabs[amazingPrefabId];
+            }
+        }
+        if (amazingPrefabToSpawn != null)
+        {
+            Instantiate(amazingPrefabToSpawn, new Vector3(transform.position.x, transform.position.y, finalSquare[0].transform.position.z - 2), Quaternion.identity);
+        }
+
         int shapeToKeep = Random.Range(0, finalSquare.Count);
 
         int multiplier = 1;
