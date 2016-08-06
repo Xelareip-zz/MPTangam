@@ -28,6 +28,7 @@ public class MPTGameManager : MonoBehaviour
     public GameObject startUI;
     public GameObject pauseUI;
     public GameObject confirmRestartUI;
+    public GameObject tutoUI;
     public Transform debugPosition;
     public Transform gamePosition;
     public GameObject debugWeightModel;
@@ -50,6 +51,7 @@ public class MPTGameManager : MonoBehaviour
 
     public void StartGame()
     {
+        ShowTuto();
         MPTPlayer.Instance.NewGameStarted();
         Destroy(startUI);
         MPTSpawner.Instance.SpawnNew();
@@ -189,16 +191,22 @@ public class MPTGameManager : MonoBehaviour
         Loose();
     }
 
+    public void ShowTuto()
+    {
+        isPaused = true;
+        tutoUI.SetActive(true);
+    }
+
     public void Pause()
     {
         isPaused = true;
-        //pauseUI.SetActive(true);
     }
 
     public void Resume()
     {
         isPaused = false;
         confirmRestartUI.SetActive(false);
+        tutoUI.SetActive(false);
     }
 
     public void SendEmail()
