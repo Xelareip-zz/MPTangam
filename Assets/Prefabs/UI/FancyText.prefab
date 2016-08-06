@@ -91,6 +91,7 @@ MonoBehaviour:
   speed: 1.5
   direction: {x: 0, y: 0, z: 0}
   lifeTime: 1.5
+  fadeOutTime: 1
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

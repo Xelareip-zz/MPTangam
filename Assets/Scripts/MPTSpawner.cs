@@ -31,7 +31,8 @@ public class MPTSpawner : MonoBehaviour
     private float totalWeights;
 
     public MPTShape currentShape;
-    //public MPTShape nextShape;
+
+    public GameObject cantDropText;
 
     void Start()
     {
@@ -207,10 +208,11 @@ public class MPTSpawner : MonoBehaviour
         {
             if (spawnedShapes[shapeId] == null || spawnedShapes[shapeId].GetComponent<MPTShape>().CheckGridHasSpace())
             {
+                cantDropText.SetActive(false);
                 return;
             }
         }
-        MPTGameManager.Instance.Loose();
+        cantDropText.SetActive(true);
         return;
         /*
         UpdateWeights();
