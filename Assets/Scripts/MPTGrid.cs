@@ -170,18 +170,6 @@ public class MPTGrid : MonoBehaviour
             return;
         }
 
-        GameObject amazingPrefabToSpawn = null;
-        for (int amazingPrefabId = 0; amazingPrefabId < finalSquare.Count && amazingPrefabId < MPTGameManager.Instance.amazingPrefabs.Count; ++amazingPrefabId)
-        {
-            if (MPTGameManager.Instance.amazingPrefabs[amazingPrefabId] != null)
-            {
-                amazingPrefabToSpawn = MPTGameManager.Instance.amazingPrefabs[amazingPrefabId];
-            }
-        }
-        if (amazingPrefabToSpawn != null)
-        {
-            Instantiate(amazingPrefabToSpawn, new Vector3(transform.position.x, transform.position.y, finalSquare[0].transform.position.z - 2), Quaternion.identity);
-        }
 
         int shapeToKeep = Random.Range(0, finalSquare.Count);
 
@@ -227,6 +215,24 @@ public class MPTGrid : MonoBehaviour
                 anim.animationTime = 1.0f;
             }
             --shapeToKeep;
+        }
+
+        int multiplierColorId = Mathf.Clamp(multiplier - 1, 0, MPTGameManager.Instance.multiplierColors.Count - 1);
+
+        GameObject amazingPrefabToSpawn = null;
+        for (int amazingPrefabId = 0; amazingPrefabId < finalSquare.Count && amazingPrefabId < MPTGameManager.Instance.amazingPrefabs.Count; ++amazingPrefabId)
+        {
+            if (MPTGameManager.Instance.amazingPrefabs[amazingPrefabId] != null)
+            {
+                amazingPrefabToSpawn = MPTGameManager.Instance.amazingPrefabs[amazingPrefabId];
+            }
+        }
+        if (amazingPrefabToSpawn != null)
+        {
+            GameObject amazingPrefab = (GameObject)Instantiate(amazingPrefabToSpawn, new Vector3(transform.position.x, transform.position.y, finalSquare[0].transform.position.z - 2), Quaternion.identity);
+            TextMesh textMesh = amazingPrefab.GetComponentInChildren<TextMesh>();
+            textMesh.color = MPTGameManager.Instance.multiplierColors[multiplierColorId];
+            textMesh.text = string.Format(textMesh.text, multiplier);
         }
     }
 }
