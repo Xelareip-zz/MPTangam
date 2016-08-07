@@ -2124,21 +2124,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fancyScorePrefab: {fileID: 182510, guid: bcf1c5d489139864bbde6bee50e2dfca, type: 2}
   amazingPrefabs:
-  - {fileID: 122894, guid: 94b161b4a6d26684b849be639f6c1b31, type: 2}
+  - {fileID: 122894, guid: 8f826037a99b58a41bb99fb50346af29, type: 2}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 122894, guid: 94b161b4a6d26684b849be639f6c1b31, type: 2}
-  - {fileID: 122894, guid: 94b161b4a6d26684b849be639f6c1b31, type: 2}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 122894, guid: ec5e463fcaab1004abc6ee0bf127e282, type: 2}
+  - {fileID: 122894, guid: a820a6b2d8e0dc242a15c118f8495820, type: 2}
+  - {fileID: 122894, guid: 8b09dbcaeca7c9345887dc0aa5202f5b, type: 2}
+  - {fileID: 122894, guid: 7628ed7cb7a00284899de9b3b6e3f32e, type: 2}
+  - {fileID: 122894, guid: 42808ea3f466e764f86f2d32748b03cc, type: 2}
   scoreText: {fileID: 1140252791}
   bestScoreText: {fileID: 1735583583}
   scoreFinalText: {fileID: 1398909662}
