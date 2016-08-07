@@ -15,9 +15,11 @@ public class MPTDelayedCounter : MonoBehaviour
     public float maxSpeed;
     public float speed;
     public float startDelay;
+    public float duration;
 
     public bool canUpdate;
     public float canUpdateAt;
+    public float finishUpdateAt;
 
     void Update()
     {
@@ -26,15 +28,21 @@ public class MPTDelayedCounter : MonoBehaviour
             canUpdate = true;
         }
 
-        if (Mathf.Abs(targetScore - currentScore) > 0.25f && canUpdate)
+        //if (Mathf.Abs(targetScore - currentScore) > 0.25f && canUpdate)
+        //{
+        //    if (Mathf.Abs(targetScore - currentScore) < 5)
+        //    {
+        //        currentScore = Mathf.Lerp(currentScore, targetScore, speed * Time.deltaTime);
+        //    }
+        //    else
+        //    {
+        //        currentScore += maxSpeed * Time.deltaTime;
+        //    }
+        if (canUpdate && currentScore != targetScore)
         {
-            if (Mathf.Abs(targetScore - currentScore) < 5)
+            if (currentScore < targetScore)
             {
-                currentScore = Mathf.Lerp(currentScore, targetScore, speed * Time.deltaTime);
-            }
-            else
-            {
-                currentScore += maxSpeed * Time.deltaTime;
+                currentScore = Mathf.Min(currentScore + speed * Time.deltaTime, targetScore);
             }
             currentScale = Mathf.Lerp(currentScale, maxScale, speed * Time.deltaTime);
         }
@@ -50,9 +58,14 @@ public class MPTDelayedCounter : MonoBehaviour
     public void SetScore(int target)
     {
         targetScore = target;
+        if (targetScore < currentScore)
+        {
+            currentScore = targetScore;
+        }
         if (canUpdate == false && canUpdateAt < Time.time)
         {
             canUpdateAt = Time.time + startDelay;
         }
+        speed = (targetScore - currentScore) / duration;
     }
 }
