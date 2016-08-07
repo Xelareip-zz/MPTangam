@@ -7,25 +7,44 @@ public class MPTDelayedCounter : MonoBehaviour
     public Text textDisplay;
 
     public float currentScore;
-    public int targetScore;
+    private int targetScore;
 
     public float currentScale;
     public float maxScale;
     
     public float speed;
+    public float startDelay;
+
+    public bool canUpdate;
+    public float canUpdateAt;
 
     void Update()
     {
-        if (Mathf.Abs(targetScore - currentScore) > 0.25f)
+        if (canUpdateAt < Time.time)
+        {
+            canUpdate = true;
+        }
+
+        if (Mathf.Abs(targetScore - currentScore) > 0.25f && canUpdate)
         {
             currentScore = Mathf.Lerp(currentScore, targetScore, speed * Time.deltaTime);
             currentScale = Mathf.Lerp(currentScale, maxScale, speed * Time.deltaTime);
         }
         else
         {
+            canUpdate = false;
             currentScale = Mathf.Lerp(currentScale, 1.0f, speed * Time.deltaTime);
         }
         textDisplay.text = string.Format("{0}", Mathf.RoundToInt(currentScore));
         transform.localScale = Vector3.one * currentScale;
+    }
+
+    public void SetScore(int target)
+    {
+        targetScore = target;
+        if (canUpdate == false && canUpdateAt < Time.time)
+        {
+            canUpdateAt = Time.time + startDelay;
+        }
     }
 }
