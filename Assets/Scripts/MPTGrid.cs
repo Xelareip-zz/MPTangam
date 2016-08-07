@@ -185,14 +185,14 @@ public class MPTGrid : MonoBehaviour
 
         int shapeToKeep = Random.Range(0, finalSquare.Count);
 
-        int multiplier = 1;
+        int multiplier = finalSquare.Count;
         int highestMultiplier = 0;
-
+        /*
         foreach (MPTShape currentShape in finalSquare)
         {
             multiplier += currentShape.multiplier;
             highestMultiplier = Mathf.Max(highestMultiplier, currentShape.multiplier);
-        }
+        }*/
 
         int shapeToKeepPosition = shapeToKeep;
         /*shapeToKeep = -1;
@@ -212,6 +212,8 @@ public class MPTGrid : MonoBehaviour
             {
                 MPTSpawner.Instance.SetNextShape(currentShape);
                 currentShape.SetMultiplier(highestMultiplier + 1);
+                currentShape.points = multiplier;
+                currentShape.UpdateColor();
                 /*GameObject spawnTextMultiplier = Instantiate<GameObject>(spawnText);
                 spawnTextMultiplier.GetComponent<TextMesh>().text = "x " + (highestMultiplier + 2);
                 spawnTextMultiplier.transform.parent = MPTGrid.Instance.transform;

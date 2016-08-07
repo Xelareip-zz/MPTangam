@@ -69,7 +69,7 @@ public class MPTGameManager : MonoBehaviour
 
     public void ShapeConsumed(MPTShape shape, int multiplier)
     {
-        score += multiplier;
+        score += multiplier * shape.points;
         if (score > currentTopScore)
         {
             currentTopScore = score;

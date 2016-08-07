@@ -27,6 +27,7 @@ public class MPTShape : MonoBehaviour
     SpriteRenderer spriteRenderer;
     public float weight;
     public int multiplier;
+    public int points;
 
     private float width;
     private float height;
@@ -139,6 +140,7 @@ public class MPTShape : MonoBehaviour
 
     public void Init()
     {
+        points = 1;
         initialScale = transform.localScale;
         transform.localScale = initialScale / 2.0f;
         hasBeenDropped = false;
@@ -341,8 +343,8 @@ public class MPTShape : MonoBehaviour
     {
         MPTGameManager.Instance.ShapeConsumed(this, currentMultiplier);
         GameObject scorePrefab = Instantiate(MPTGameManager.Instance.fancyScorePrefab);
-        scorePrefab.GetComponent<TextMesh>().text = "+" + currentMultiplier;
-        scorePrefab.GetComponent<TextMesh>().color = MPTGameManager.Instance.multiplierColors[currentMultiplier];
+        scorePrefab.GetComponent<TextMesh>().text = "+" + points;
+        scorePrefab.GetComponent<TextMesh>().color = MPTGameManager.Instance.multiplierColors[points - 1];
         scorePrefab.transform.position = transform.position;
         
         if (keepShape == false)
@@ -369,7 +371,14 @@ public class MPTShape : MonoBehaviour
     {
         if (((hasBeenDropped && draggable.currentlyDragged == false) || canDrop) && (isFullyInGrid || draggable.currentlyDragged == false))
         {
-            spriteRenderer.color = MPTGameManager.Instance.multiplierColors[multiplier];
+            if (points <= MPTGameManager.Instance.multiplierColors.Count)
+            {
+                spriteRenderer.color = MPTGameManager.Instance.multiplierColors[points - 1];
+            }
+            else
+            {
+                spriteRenderer.color = MPTGameManager.Instance.multiplierColors[MPTGameManager.Instance.multiplierColors.Count - 1];
+            }
         }
         else
         {
