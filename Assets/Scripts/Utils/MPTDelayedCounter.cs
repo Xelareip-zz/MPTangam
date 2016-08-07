@@ -11,7 +11,8 @@ public class MPTDelayedCounter : MonoBehaviour
 
     public float currentScale;
     public float maxScale;
-    
+
+    public float maxSpeed;
     public float speed;
     public float startDelay;
 
@@ -27,7 +28,14 @@ public class MPTDelayedCounter : MonoBehaviour
 
         if (Mathf.Abs(targetScore - currentScore) > 0.25f && canUpdate)
         {
-            currentScore = Mathf.Lerp(currentScore, targetScore, speed * Time.deltaTime);
+            if (Mathf.Abs(targetScore - currentScore) < 5)
+            {
+                currentScore = Mathf.Lerp(currentScore, targetScore, speed * Time.deltaTime);
+            }
+            else
+            {
+                currentScore += maxSpeed * Time.deltaTime;
+            }
             currentScale = Mathf.Lerp(currentScale, maxScale, speed * Time.deltaTime);
         }
         else

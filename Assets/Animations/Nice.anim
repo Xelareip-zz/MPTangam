@@ -25,13 +25,13 @@ AnimationClip:
         tangentMode: 0
       - time: 1
         value: {x: 1, y: 1, z: 1}
-        inSlope: {x: 1, y: 1, z: 1}
-        outSlope: {x: 1, y: 1, z: 1}
+        inSlope: {x: 0.25599122, y: 0.25892875, z: 0.25892875}
+        outSlope: {x: 0.25599122, y: 0.25892875, z: 0.25892875}
         tangentMode: 0
       - time: 1.683333
         value: {x: 1, y: 1, z: 1}
-        inSlope: {x: -1.5789459, y: -1.5789459, z: -1.5789459}
-        outSlope: {x: -1.5789459, y: -1.5789459, z: -1.5789459}
+        inSlope: {x: -0.2438314, y: -0.23328446, z: -0.24359617}
+        outSlope: {x: -0.2438314, y: -0.23328446, z: -0.24359617}
         tangentMode: 0
       - time: 2
         value: {x: 0, y: 0, z: 0}
@@ -89,14 +89,14 @@ AnimationClip:
         tangentMode: 10
       - time: 1
         value: 1
-        inSlope: 1
-        outSlope: 1
-        tangentMode: 10
+        inSlope: 0.25599122
+        outSlope: 0.25599122
+        tangentMode: 0
       - time: 1.683333
         value: 1
-        inSlope: -1.5789459
-        outSlope: -1.5789459
-        tangentMode: 10
+        inSlope: -0.2438314
+        outSlope: -0.2438314
+        tangentMode: 0
       - time: 2
         value: 0
         inSlope: -3.1578918
@@ -119,14 +119,14 @@ AnimationClip:
         tangentMode: 10
       - time: 1
         value: 1
-        inSlope: 1
-        outSlope: 1
-        tangentMode: 10
+        inSlope: 0.25892875
+        outSlope: 0.25892875
+        tangentMode: 0
       - time: 1.683333
         value: 1
-        inSlope: -1.5789459
-        outSlope: -1.5789459
-        tangentMode: 10
+        inSlope: -0.23328446
+        outSlope: -0.23328446
+        tangentMode: 0
       - time: 2
         value: 0
         inSlope: -3.1578918
@@ -149,14 +149,14 @@ AnimationClip:
         tangentMode: 10
       - time: 1
         value: 1
-        inSlope: 1
-        outSlope: 1
-        tangentMode: 10
+        inSlope: 0.25892875
+        outSlope: 0.25892875
+        tangentMode: 0
       - time: 1.683333
         value: 1
-        inSlope: -1.5789459
-        outSlope: -1.5789459
-        tangentMode: 10
+        inSlope: -0.24359617
+        outSlope: -0.24359617
+        tangentMode: 0
       - time: 2
         value: 0
         inSlope: -3.1578918
@@ -174,7 +174,7 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_GenerateMotionCurves: 0
   m_Events:
-  - time: 1.5
+  - time: 2
     functionName: DestroyGameObject
     data: 
     objectReferenceParameter: {fileID: 0}
