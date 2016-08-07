@@ -51,6 +51,7 @@ public class MPTGameManager : MonoBehaviour
 
     public void StartGame()
     {
+        isPaused = false;
         if (MPTPlayer.Instance.GetTutoDone() == false)
         {
             ShowTuto();
@@ -64,6 +65,28 @@ public class MPTGameManager : MonoBehaviour
     
     public void Loose()
     {
+        Resume();
+        isPaused = true;
+        int shapeId = MPTShapeManager.Instance.listOfShapes.Count - 1;
+        while (shapeId >= 0)
+        {
+            MPTShape shape = MPTShapeManager.Instance.listOfShapes[shapeId];
+            if (shape.hasBeenDropped)
+            {
+                shape.Consume(1, false);
+                MPTSquareDoneAnimation anim = shape.gameObject.AddComponent<MPTSquareDoneAnimation>();
+                anim.targetScale = Vector3.zero;
+                anim.animationTime = 1.0f;
+            }
+            --shapeId;
+        }
+        StartCoroutine(ShowLooseScreenIn(2.0f));
+    }
+
+    IEnumerator ShowLooseScreenIn(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        isPaused = true;
         looseScreen.SetActive(true);
     }
 
