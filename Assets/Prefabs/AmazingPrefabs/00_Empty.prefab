@@ -11,7 +11,7 @@ GameObject:
   - 95: {fileID: 9581996}
   - 114: {fileID: 11439696}
   m_Layer: 0
-  m_Name: Nice
+  m_Name: 00_Empty
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -157,16 +157,14 @@ TextMesh:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 162890}
-  m_Text: 'Nice!
-
-    x{0}'
+  m_Text: x{0}
   m_OffsetZ: 0
   m_CharacterSize: 1
   m_LineSpacing: 1
   m_Anchor: 4
   m_Alignment: 1
   m_TabSize: 4
-  m_FontSize: 310
+  m_FontSize: 140
   m_FontStyle: 0
   m_RichText: 1
   m_Font: {fileID: 12800000, guid: 34be8105bbba94dedab242e19e1ae124, type: 3}
