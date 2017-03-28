@@ -64,20 +64,20 @@ public class MPTUtils
 
         for (int i = 1; i < polygon.Length; ++i)
         {
-            float crossRes = Vector3.Cross(polygon[i % polygon.Length] - polygon[i], point - polygon[i]).z;
+            float crossRes = Vector3.Cross(polygon[(i + 1) % polygon.Length] - polygon[i], point - polygon[i]).z;
             if (firstRes * crossRes < 0)
             {
-                return true;
+                return false;
             }
             else if (crossRes == 0.0f)
             {
-                if ((point.x - polygon[i % polygon.Length].x) * (point.x - polygon[i].x) <= 0)
+                if ((point.x - polygon[(i + 1) % polygon.Length].x) * (point.x - polygon[i].x) <= 0)
                 {
                     return true;
                 }
             }
         }
-        return false;
+        return true;
     }
 
     public static bool PolygonsIntersect(Vector2[] polygon0, Vector2[] polygon1)

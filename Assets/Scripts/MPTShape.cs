@@ -267,38 +267,8 @@ public class MPTShape : MonoBehaviour
                         if (MPTUtils.PolygonsIntersect(points, currentPoints))
                         {
                             shapeWasHit = true;
-                        }
-                        /*
-                        //this contains current
-                        for (int j = 0; j < currentPoints.Length; ++j)
-                        {
-                            if (polygonCollider.OverlapPoint(currentPoints[j] + new Vector2(transform.position.x, transform.position.y) - centerPosition))
-                            {
-                                shapeWasHit = true;
-                                break;
-                            }
-                        }
-                        if (shapeWasHit)
-                        {
-                            break;
-                        }
-
-                        // some intersections
-                        for (int i = 0; i < points.Length && shapeWasHit == false; ++i)
-                        {
-                            for (int j = 0; j < currentPoints.Length; ++j)
-                            {
-                                if (MPTUtils.SegmentIntersect(points[i], points[(i + 1) % points.Length], currentPoints[j], currentPoints[(j + 1) % currentPoints.Length]))
-                                {
-                                    shapeWasHit = true;
-                                    break;
-                                }
-                            }
-                        }*/
-                        if (shapeWasHit)
-                        {
-                            break;
-                        }
+							break;
+						}
                     }
                 }
                 if (shapeWasHit == false)
