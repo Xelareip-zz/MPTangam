@@ -201,18 +201,23 @@ public class MPTSpawner : MonoBehaviour
         CreateShape(spawnablesDict[shapeName]);
     }
 
+	public void UpdateCantDropText()
+	{
+		for (int shapeId = 0; shapeId < spawnedShapes.Length; ++shapeId)
+		{
+			if (spawnedShapes[shapeId] == null || spawnedShapes[shapeId].GetComponent<MPTShape>().CheckGridHasSpace())
+			{
+				cantDropText.SetActive(false);
+				return;
+			}
+		}
+		cantDropText.SetActive(true);
+	}
+
     public void SpawnNew()
     {
         SpawnNewSequence();
-        for (int shapeId = 0; shapeId < spawnedShapes.Length; ++shapeId)
-        {
-            if (spawnedShapes[shapeId] == null || spawnedShapes[shapeId].GetComponent<MPTShape>().CheckGridHasSpace())
-            {
-                cantDropText.SetActive(false);
-                return;
-            }
-        }
-        cantDropText.SetActive(true);
+		UpdateCantDropText();
         return;
         /*
         UpdateWeights();

@@ -234,5 +234,7 @@ public class MPTGrid : MonoBehaviour
             textMesh.color = MPTGameManager.Instance.multiplierColors[multiplierColorId];
             textMesh.text = string.Format(textMesh.text, multiplier);
         }
-    }
+
+		MPTSpawner.Instance.UpdateCantDropText();
+	}
 }
