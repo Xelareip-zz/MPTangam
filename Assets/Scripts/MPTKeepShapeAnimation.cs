@@ -3,6 +3,13 @@ using System.Collections;
 
 public class MPTKeepShapeAnimation : MonoBehaviour
 {
+	private static int animationsHappening = 0;
+
+	public static int GetAnimationsCount()
+	{
+		return animationsHappening;
+	}
+
     public float animationTime;
     
     public Vector3 targetPosition;
@@ -11,6 +18,16 @@ public class MPTKeepShapeAnimation : MonoBehaviour
     private Vector3 initialScale;
 
     private float startTime;
+
+	void Awake()
+	{
+		++animationsHappening;
+	}
+
+	void OnDestroy()
+	{
+		--animationsHappening;
+	}
 
 	void Start ()
     {
@@ -23,6 +40,7 @@ public class MPTKeepShapeAnimation : MonoBehaviour
     {
         if ((Time.time - startTime) > animationTime)
         {
+			Destroy(this);
             return;
         }
         transform.position = initialPosition + (targetPosition - initialPosition) * (Time.time - startTime) / animationTime;

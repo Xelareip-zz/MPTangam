@@ -28,6 +28,8 @@ public class MPTDraggable : MonoBehaviour
 
     void Update()
     {
+		if (MPTKeepShapeAnimation.GetAnimationsCount() != 0)
+			return;
         if (MPTGameManager.Instance.isPaused)
         {
             if (currentlyDragged)
