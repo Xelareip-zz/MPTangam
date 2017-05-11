@@ -137,7 +137,7 @@ public class MPTShape : MonoBehaviour
         }*/
 		if (draggable.currentlyDragged)
 		{
-			CheckCanDrop(MPTSpawner.Instance.ghostCollider);
+			CheckCanDrop();
 		}
     }
 
@@ -150,7 +150,7 @@ public class MPTShape : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
-    private void CheckCanDrop(PolygonCollider2D polygonCollider)
+    private void CheckCanDrop()
 	{
 		Vector2 closestPoint = new Vector2(float.MaxValue, float.MaxValue);
 		float minDistance = float.MaxValue;
@@ -326,7 +326,6 @@ public class MPTShape : MonoBehaviour
     public void AfterDrop()
 	{
 		transform.position = MPTSpawner.Instance.ghostRenderer.transform.position + new Vector3(0, 0, 1);
-		CheckCanDrop(MPTSpawner.Instance.ghostCollider);
 		if (/*isOnGrid && isFullyInGrid && */canDrop)
         {
             //Destroy(draggable);
@@ -351,7 +350,11 @@ public class MPTShape : MonoBehaviour
             }
         }
 		MPTSpawner.Instance.ghostRenderer.transform.position = new Vector2(-1000, -1000);
-    }
+		foreach (MPTShape shape in MPTShapeManager.Instance.listOfShapes)
+		{
+			shape.FindDropSpaces();
+		}
+	}
 
     public void Consume(int currentMultiplier, bool keepShape)
     {
