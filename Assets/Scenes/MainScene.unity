@@ -2136,6 +2136,7 @@ MonoBehaviour:
   currentShape: {fileID: 0}
   cantDropText: {fileID: 1144755296}
   ghostRenderer: {fileID: 1971716105}
+  ghostCollider: {fileID: 1971716107}
 --- !u!4 &704424568
 Transform:
   m_ObjectHideFlags: 0
