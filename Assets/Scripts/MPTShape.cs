@@ -32,13 +32,13 @@ public class MPTShape : MonoBehaviour
     private float width;
     private float height;
     private int[,] miniTriangles;
-    public bool isOnGrid;
-    public bool isFullyInGrid;
     public bool canDrop;
     public bool hasBeenDropped;
     public int miniTrianglesCount;
 
     public Vector3 initialScale;
+
+	public List<Vector2> droppableSpaces = new List<Vector2>();
 
     void Start()
     {
@@ -127,15 +127,18 @@ public class MPTShape : MonoBehaviour
     void Update()
     {
         UpdateColor();
-        if (MPTGrid.Instance != null && MPTGrid.Instance.coll.IsTouching(polygonCollider))
+        /*if (MPTGrid.Instance != null && MPTGrid.Instance.coll.IsTouching(polygonCollider))
         {
             isOnGrid = true;
         }
         else
         {
             isOnGrid = false;
-        }
-        CheckCanDrop();
+        }*/
+		if (draggable.currentlyDragged)
+		{
+			CheckCanDrop(MPTSpawner.Instance.ghostCollider);
+		}
     }
 
     public void Init()
@@ -147,9 +150,22 @@ public class MPTShape : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
-    private void CheckCanDrop()
-    {
-        canDrop = true;
+    private void CheckCanDrop(PolygonCollider2D polygonCollider)
+	{
+		Vector2 closestPoint = new Vector2(float.MaxValue, float.MaxValue);
+		float minDistance = float.MaxValue;
+		foreach (Vector2 droppableSpace in droppableSpaces)
+		{
+			float currentDistance = Vector2.Distance(droppableSpace, transform.position);
+			if (currentDistance < Vector2.Distance(closestPoint, transform.position))
+			{
+				minDistance = currentDistance;
+				closestPoint = droppableSpace;
+			}
+		}
+		canDrop = minDistance < 1.5f;
+		/*
+		canDrop = true;
         foreach (MPTShape current in MPTShapeManager.Instance.listOfShapes)
         {
             if (current == this)
@@ -165,14 +181,23 @@ public class MPTShape : MonoBehaviour
                 }
             }
         }
+		Debug.Log("Can drop " + canDrop);*/
     }
 
     public void AfterDrag()
-    {
+	{
+		MPTSpawner.Instance.ghostCollider.points = polygonCollider.points;
+		MPTSpawner.Instance.ghostCollider.offset = polygonCollider.offset;
+		MPTSpawner.Instance.ghostRenderer.transform.rotation = transform.rotation;
+		MPTSpawner.Instance.ghostRenderer.transform.localScale = transform.localScale;
+		MPTSpawner.Instance.ghostRenderer.sprite = spriteRenderer.sprite;
+		Color ghostColor = GetColor();
+		ghostColor.a /= 2;
+		MPTSpawner.Instance.ghostRenderer.color = ghostColor;
         transform.position = new Vector3(transform.position.x, transform.position.y, draggable.initialPos.z - 1);
         transform.localScale = initialScale;
         UpdateColor();
-
+		/*
         isFullyInGrid = true;
         foreach (Vector2 point in polygonCollider.points)
         {
@@ -187,104 +212,122 @@ public class MPTShape : MonoBehaviour
                 isFullyInGrid = false;
                 break;
             }
-        }
-
-        if (isFullyInGrid)
-        {
-            transform.position = new Vector3(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.y), transform.position.z);
-        }
+        }*/
+		
+		Vector2 closestPoint = new Vector2(float.MaxValue, float.MaxValue);
+		float minDistance = float.MaxValue;
+		foreach (Vector2 droppableSpace in droppableSpaces)
+		{
+			float currentDistance = Vector2.Distance(droppableSpace, transform.position);
+            if (currentDistance < Vector2.Distance(closestPoint, transform.position))
+			{
+				minDistance = currentDistance;
+				closestPoint = droppableSpace;
+			}
+		}
+		if (minDistance < 1.5f)
+		{
+			MPTSpawner.Instance.ghostRenderer.transform.position = new Vector3(closestPoint.x, closestPoint.y, transform.position.z);
+		}
+		else
+		{
+			MPTSpawner.Instance.ghostRenderer.transform.position = transform.position;
+		}
     }
 
-    public bool CheckGridHasSpace()
-    {
+	public bool FindDropSpaces()
+	{
+		droppableSpaces.Clear();
         float xStart = MPTGrid.Instance.transform.position.x - MPTGrid.Instance.width / 2.0f;
-        float yStart = MPTGrid.Instance.transform.position.y + MPTGrid.Instance.height / 2.0f;
+		float yStart = MPTGrid.Instance.transform.position.y + MPTGrid.Instance.height / 2.0f;
 
-        for (int gridX = 0; gridX <= MPTGrid.Instance.width; ++gridX)
-        {
-            for (int gridY = 0; gridY <= MPTGrid.Instance.height; ++gridY)
-            {
-                Vector2 centerPosition = new Vector2(xStart + gridX, yStart - gridY);
-                Vector2[] points = new Vector2[polygonCollider.points.Length];
+		for (int gridX = 0; gridX <= MPTGrid.Instance.width; ++gridX)
+		{
+			for (int gridY = 0; gridY <= MPTGrid.Instance.height; ++gridY)
+			{
+				Vector2 centerPosition = new Vector2(xStart + gridX, yStart - gridY);
+				Vector2[] points = new Vector2[polygonCollider.points.Length];
 
-                for (int pointId = 0; pointId < points.Length; ++pointId)
-                {
-                    Vector2 localPos = transform.rotation * new Vector2(
-                        (polygonCollider.offset.x + polygonCollider.points[pointId].x) * initialScale.x,
-                        (polygonCollider.offset.y + polygonCollider.points[pointId].y) * initialScale.y);
-                    Vector2 loopWorldPointPos = localPos + centerPosition;
-                    points[pointId] = loopWorldPointPos;
-                }
-                bool notInGrid = false;
-                foreach (Vector2 point in points)
-                {
-                    if (MPTGrid.Instance.coll.OverlapPoint(point) == false)
-                    {
-                        notInGrid = true;
-                        break;
-                    }
-                }
-                if (notInGrid)
-                {
-                    continue;
-                }
+				for (int pointId = 0; pointId < points.Length; ++pointId)
+				{
+					Vector2 localPos = transform.rotation * new Vector2(
+						(polygonCollider.offset.x + polygonCollider.points[pointId].x) * initialScale.x,
+						(polygonCollider.offset.y + polygonCollider.points[pointId].y) * initialScale.y);
+					Vector2 loopWorldPointPos = localPos + centerPosition;
+					points[pointId] = loopWorldPointPos;
+				}
+				bool notInGrid = false;
+				foreach (Vector2 point in points)
+				{
+					if (MPTGrid.Instance.coll.OverlapPoint(point) == false)
+					{
+						notInGrid = true;
+						break;
+					}
+				}
+				if (notInGrid)
+				{
+					continue;
+				}
 
-                bool shapeWasHit = false;
+				bool shapeWasHit = false;
 
-                foreach (MPTShape current in MPTShapeManager.Instance.listOfShapes)
-                {
-                    if (current == this || current.hasBeenDropped == false)
-                    {
-                        continue;
-                    }
-                    else
-                    {
-                        // current contains this
-                        for (int i = 0; i < points.Length; ++i)
-                        {
-                            if (current.polygonCollider.OverlapPoint(points[i]))
-                            {
-                                shapeWasHit = true;
-                            }
-                        }
-                        if (shapeWasHit)
-                        {
-                            break;
-                        }
-
-                        Vector2[] currentPoints = new Vector2[current.polygonCollider.points.Length];
-                        for (int pointId = 0; pointId < currentPoints.Length; ++pointId)
-                        {
-                            Vector2 localPosCurrent = current.transform.rotation * new Vector2(
-                                (current.polygonCollider.offset.x + current.polygonCollider.points[pointId].x) * current.transform.localScale.x,
-                                (current.polygonCollider.offset.y + current.polygonCollider.points[pointId].y) * current.transform.localScale.y);
-                            Vector2 worldPointPosCurrent = new Vector2(
-                                current.transform.position.x,
-                                current.transform.position.y) + localPosCurrent;
-                            currentPoints[pointId] = worldPointPosCurrent;
-                        }
-
-                        if (MPTUtils.PolygonsIntersect(points, currentPoints))
-                        {
-                            shapeWasHit = true;
+				foreach (MPTShape current in MPTShapeManager.Instance.listOfShapes)
+				{
+					if (current == this || current.hasBeenDropped == false)
+					{
+						continue;
+					}
+					else
+					{
+						// current contains this
+						for (int i = 0; i < points.Length; ++i)
+						{
+							if (current.polygonCollider.OverlapPoint(points[i]))
+							{
+								shapeWasHit = true;
+							}
+						}
+						if (shapeWasHit)
+						{
 							break;
 						}
-                    }
-                }
-                if (shapeWasHit == false)
-                {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
+
+						Vector2[] currentPoints = new Vector2[current.polygonCollider.points.Length];
+						for (int pointId = 0; pointId < currentPoints.Length; ++pointId)
+						{
+							Vector2 localPosCurrent = current.transform.rotation * new Vector2(
+								(current.polygonCollider.offset.x + current.polygonCollider.points[pointId].x) * current.transform.localScale.x,
+								(current.polygonCollider.offset.y + current.polygonCollider.points[pointId].y) * current.transform.localScale.y);
+							Vector2 worldPointPosCurrent = new Vector2(
+								current.transform.position.x,
+								current.transform.position.y) + localPosCurrent;
+							currentPoints[pointId] = worldPointPosCurrent;
+						}
+
+						if (MPTUtils.PolygonsIntersect(points, currentPoints))
+						{
+							shapeWasHit = true;
+							break;
+						}
+					}
+				}
+				if (shapeWasHit == false)
+				{
+					droppableSpaces.Add(centerPosition);
+
+				}
+			}
+		}
+
+		return droppableSpaces.Count != 0;
+	}
 
     public void AfterDrop()
-    {
-        transform.position = new Vector3(transform.position.x, transform.position.y, draggable.initialPos.z);
-        CheckCanDrop();
-        if (isOnGrid && isFullyInGrid && canDrop)
+	{
+		transform.position = MPTSpawner.Instance.ghostRenderer.transform.position + new Vector3(0, 0, 1);
+		CheckCanDrop(MPTSpawner.Instance.ghostCollider);
+		if (/*isOnGrid && isFullyInGrid && */canDrop)
         {
             //Destroy(draggable);
             //draggable.enabled = false;
@@ -307,6 +350,7 @@ public class MPTShape : MonoBehaviour
                 transform.localScale = initialScale;
             }
         }
+		MPTSpawner.Instance.ghostRenderer.transform.position = new Vector2(-1000, -1000);
     }
 
     public void Consume(int currentMultiplier, bool keepShape)
@@ -337,18 +381,23 @@ public class MPTShape : MonoBehaviour
         }
     }
 
+	public Color GetColor()
+	{
+		if (points <= MPTGameManager.Instance.multiplierColors.Count)
+		{
+			return MPTGameManager.Instance.multiplierColors[points - 1];
+		}
+		else
+		{
+			return MPTGameManager.Instance.multiplierColors[MPTGameManager.Instance.multiplierColors.Count - 1];
+		}
+	}
+
     public void UpdateColor()
     {
-        if (((hasBeenDropped && draggable.currentlyDragged == false) || canDrop) && (isFullyInGrid || draggable.currentlyDragged == false))
+        if ((draggable.currentlyDragged && canDrop) || draggable.currentlyDragged == false)
         {
-            if (points <= MPTGameManager.Instance.multiplierColors.Count)
-            {
-                spriteRenderer.color = MPTGameManager.Instance.multiplierColors[points - 1];
-            }
-            else
-            {
-                spriteRenderer.color = MPTGameManager.Instance.multiplierColors[MPTGameManager.Instance.multiplierColors.Count - 1];
-            }
+			spriteRenderer.color = GetColor();
         }
         else
         {

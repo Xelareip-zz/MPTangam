@@ -33,8 +33,10 @@ public class MPTSpawner : MonoBehaviour
     public MPTShape currentShape;
 
     public GameObject cantDropText;
+	public SpriteRenderer ghostRenderer;
+	public PolygonCollider2D ghostCollider;
 
-    void Start()
+	void Start()
     {
         Analytics.SetUserGender(Gender.Male);
         squaresDone = 0;
@@ -203,15 +205,15 @@ public class MPTSpawner : MonoBehaviour
 
 	public void UpdateCantDropText()
 	{
+		bool spaceFound = false;
 		for (int shapeId = 0; shapeId < spawnedShapes.Length; ++shapeId)
 		{
-			if (spawnedShapes[shapeId] == null || spawnedShapes[shapeId].GetComponent<MPTShape>().CheckGridHasSpace())
+			if (spawnedShapes[shapeId] == null || spawnedShapes[shapeId].GetComponent<MPTShape>().FindDropSpaces())
 			{
-				cantDropText.SetActive(false);
-				return;
+				spaceFound = true;
 			}
 		}
-		cantDropText.SetActive(true);
+		cantDropText.SetActive(!spaceFound);
 	}
 
     public void SpawnNew()

@@ -10,7 +10,7 @@ public class MPTEditorTrigger
     {
         foreach (GameObject cur in MPTSpawner.Instance.spawnedShapes)
         {
-            cur.GetComponent<MPTShape>().CheckGridHasSpace();
+            cur.GetComponent<MPTShape>().FindDropSpaces();
         }
     }
 }
