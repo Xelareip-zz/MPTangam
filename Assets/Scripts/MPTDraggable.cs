@@ -40,6 +40,7 @@ public class MPTDraggable : MonoBehaviour
                 }
             }
             currentlyDragged = false;
+			return;
         }
         Vector2 initPosition = new Vector2(float.MinValue, float.MinValue);
         Vector2 position = initPosition;
@@ -68,7 +69,7 @@ public class MPTDraggable : MonoBehaviour
         {
             if (currentlyDragged)
             {
-                if (beenDragged != null)
+                if (beenDropped != null)
                 {
                     beenDropped();
                 }

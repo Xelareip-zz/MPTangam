@@ -361,8 +361,8 @@ public class MPTShape : MonoBehaviour
         MPTGameManager.Instance.ShapeConsumed(this, currentMultiplier);
         GameObject scorePrefab = Instantiate(MPTGameManager.Instance.fancyScorePrefab);
         scorePrefab.GetComponent<TextMesh>().text = "+" + points;
-        scorePrefab.GetComponent<TextMesh>().color = MPTGameManager.Instance.multiplierColors[points - 1];
-        scorePrefab.transform.position = transform.position;
+		scorePrefab.GetComponent<TextMesh>().color = MPTGameManager.Instance.multiplierColors[Mathf.Max(points, MPTGameManager.Instance.multiplierColors.Count) - 1];
+		scorePrefab.transform.position = transform.position;
         
         if (keepShape == false)
         {
