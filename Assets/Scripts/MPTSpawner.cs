@@ -199,8 +199,15 @@ public class MPTSpawner : MonoBehaviour
 
         int newSpawnRand = Random.Range(0, currentSequence.Count);
         string shapeName = currentSequence[newSpawnRand];
-        currentSequence.RemoveAt(newSpawnRand);
-        CreateShape(spawnablesDict[shapeName]);
+		for (int i = 0; i < spawnedShapes.Length; ++i)
+		{
+			if (spawnedShapes[i] == null)
+			{
+				currentSequence.RemoveAt(newSpawnRand);
+				CreateShape(spawnablesDict[shapeName]);
+				break;
+			}
+		}
     }
 
 	public void UpdateCantDropText()
