@@ -38,6 +38,7 @@ public class MPTShape : MonoBehaviour
 
     public Vector3 initialScale;
 
+	public bool isDirtyDroppableSpaces;
 	public List<Vector2> droppableSpaces = new List<Vector2>();
 
     void Start()
@@ -186,6 +187,7 @@ public class MPTShape : MonoBehaviour
 
     public void AfterDrag()
 	{
+		FindDropSpaces();
 		MPTSpawner.Instance.ghostCollider.points = polygonCollider.points;
 		MPTSpawner.Instance.ghostCollider.offset = polygonCollider.offset;
 		MPTSpawner.Instance.ghostRenderer.transform.rotation = transform.rotation;
@@ -237,6 +239,10 @@ public class MPTShape : MonoBehaviour
 
 	public bool FindDropSpaces()
 	{
+		if (isDirtyDroppableSpaces == false)
+		{
+			return droppableSpaces.Count != 0;
+		}
 		droppableSpaces.Clear();
         float xStart = MPTGrid.Instance.transform.position.x - MPTGrid.Instance.width / 2.0f;
 		float yStart = MPTGrid.Instance.transform.position.y + MPTGrid.Instance.height / 2.0f;
@@ -319,8 +325,8 @@ public class MPTShape : MonoBehaviour
 				}
 			}
 		}
-
-		return droppableSpaces.Count != 0;
+		isDirtyDroppableSpaces = false;
+        return droppableSpaces.Count != 0;
 	}
 
     public void AfterDrop()
@@ -349,10 +355,15 @@ public class MPTShape : MonoBehaviour
                 transform.localScale = initialScale;
             }
         }
-		MPTSpawner.Instance.ghostRenderer.transform.position = new Vector2(-1000, -1000);
 		foreach (MPTShape shape in MPTShapeManager.Instance.listOfShapes)
 		{
-			shape.FindDropSpaces();
+			shape.isDirtyDroppableSpaces = true;
+		}
+
+		MPTSpawner.Instance.ghostRenderer.transform.position = new Vector2(-1000, -1000);
+		foreach (GameObject go in MPTSpawner.Instance.spawnedShapes)
+		{
+			go.GetComponent<MPTShape>().FindDropSpaces();
 		}
 	}
 
