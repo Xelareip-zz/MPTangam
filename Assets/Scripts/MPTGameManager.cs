@@ -80,7 +80,7 @@ public class MPTGameManager : MonoBehaviour
             }
             --shapeId;
         }
-        StartCoroutine(ShowLooseScreenIn(2.0f));
+        StartCoroutine(ShowLooseScreenIn(4.0f));
     }
 
     IEnumerator ShowLooseScreenIn(float delay)
@@ -207,6 +207,10 @@ public class MPTGameManager : MonoBehaviour
 
     public void ShowConfirmRestart()
     {
+		if (isPaused)
+		{
+			return;
+		}
         isPaused = true;
         confirmRestartUI.SetActive(true);
     }
