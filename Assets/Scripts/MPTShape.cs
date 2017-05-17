@@ -365,6 +365,7 @@ public class MPTShape : MonoBehaviour
 		{
 			go.GetComponent<MPTShape>().FindDropSpaces();
 		}
+		MPTSpawner.Instance.UpdateCantDropText();
 	}
 
     public void Consume(int currentMultiplier, bool keepShape)
