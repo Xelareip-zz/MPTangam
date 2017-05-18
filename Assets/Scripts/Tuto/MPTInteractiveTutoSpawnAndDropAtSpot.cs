@@ -19,6 +19,18 @@ public class MPTInteractiveTutoSpawnAndDropAtSpot : MPTInteractiveTutoBase
 		}
     }
 
+	public override void End()
+	{
+		foreach (MPTShape shape in MPTShapeManager.Instance.listOfShapes)
+		{
+			shape.shapeTryDrop -= ShapeTriedDrop;
+		}
+		MPTShapeManager.Instance.shapeRegistered -= ShapeRegistered;
+		MPTShapeManager.Instance.shapeUnregistered -= ShapeUnregistered;
+
+		base.End();
+	}
+
 	public void ShapeRegistered(MPTShape shape)
 	{
 		shape.shapeTryDrop += ShapeTriedDrop;
