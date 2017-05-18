@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections.Generic;
 
 public class MINI_TRIANGLE_POS
@@ -40,6 +41,7 @@ public class MPTShape : MonoBehaviour
 
 	public bool isDirtyDroppableSpaces;
 	public List<Vector2> droppableSpaces = new List<Vector2>();
+	public event Action<MPTShape> shapeTryDrop;
 
     void Start()
     {
@@ -164,7 +166,12 @@ public class MPTShape : MonoBehaviour
 				closestPoint = droppableSpace;
 			}
 		}
+		//Debug.Log("Closest: " + closestPoint);
 		canDrop = minDistance < 1.5f;
+		if (MPTInteractiveTutoManager.Instance.BlockadeDropAtSpot(this, closestPoint) == false)
+		{
+			canDrop = false;
+		}
 		/*
 		canDrop = true;
         foreach (MPTShape current in MPTShapeManager.Instance.listOfShapes)
@@ -227,7 +234,7 @@ public class MPTShape : MonoBehaviour
 				closestPoint = droppableSpace;
 			}
 		}
-		if (minDistance < 1.5f)
+		if (canDrop)
 		{
 			MPTSpawner.Instance.ghostRenderer.transform.position = new Vector3(closestPoint.x, closestPoint.y, transform.position.z);
 		}
@@ -331,6 +338,10 @@ public class MPTShape : MonoBehaviour
 
     public void AfterDrop()
 	{
+		if (shapeTryDrop != null)
+		{
+			shapeTryDrop(this);
+		}
 		transform.position = MPTSpawner.Instance.ghostRenderer.transform.position + new Vector3(0, 0, 1);
 		if (/*isOnGrid && isFullyInGrid && */canDrop)
         {

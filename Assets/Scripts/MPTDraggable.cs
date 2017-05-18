@@ -9,7 +9,7 @@ public class MPTDraggable : MonoBehaviour
     public Vector3 initialPos;
     private Collider2D coll;
 
-    public List<Collider2D> additionalColliders;
+    public List<Collider2D> additionalColliders = new List<Collider2D>();
 
     public event Action beenDragged;
     public event Action beenDropped;
@@ -30,7 +30,7 @@ public class MPTDraggable : MonoBehaviour
     {
 		if (MPTKeepShapeAnimation.GetAnimationsCount() != 0)
 			return;
-        if (MPTGameManager.Instance.isPaused)
+        if (MPTGameManager.Instance != null && MPTGameManager.Instance.isPaused)
         {
             if (currentlyDragged)
             {
@@ -79,12 +79,12 @@ public class MPTDraggable : MonoBehaviour
         }
 
         position = MPTUtils.ScreenToWorld(position);
-        
+
         if (coll.OverlapPoint(position))
         {
             if (justClicked)
-            {
-                currentlyDragged = true;
+			{
+				currentlyDragged = true;
             }
         }
 
@@ -99,7 +99,12 @@ public class MPTDraggable : MonoBehaviour
             }
         }
 
-        if (currentlyDragged)
+		if (MPTInteractiveTutoManager.Instance.BlockadeDragPiece(gameObject.GetComponent<MPTShape>()) == false)
+		{
+			currentlyDragged = false;
+		}
+
+		if (currentlyDragged)
         {
             transform.position = new Vector3(position.x, position.y + 2.0f, 0.0f);
         }

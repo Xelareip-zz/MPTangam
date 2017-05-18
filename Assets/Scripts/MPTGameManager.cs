@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine.UI;
 using System.Collections.Generic;
 using UnityEngine.Analytics;
+using UnityEngine.SceneManagement;
 
 public class MPTGameManager : MonoBehaviour
 {
@@ -54,7 +55,8 @@ public class MPTGameManager : MonoBehaviour
         isPaused = false;
         if (MPTPlayer.Instance.GetTutoDone() == false)
         {
-            ShowTuto();
+			MPTInteractiveTutoManager.Instance.StartTuto("Tutorial0");
+            //ShowTuto();
         }
         MPTPlayer.Instance.NewGameStarted();
         Destroy(startUI);
@@ -223,9 +225,14 @@ public class MPTGameManager : MonoBehaviour
 
     public void ShowTuto()
     {
-        isPaused = true;
+		MPTPlayer.Instance.SetTutoDone(false);
+
+		SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+		/*
+		isPaused = true;
         tutoUI.SetActive(true);
         infoUI.SetActive(false);
+		*/
     }
 
     public void ShowInfo()

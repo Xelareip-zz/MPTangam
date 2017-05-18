@@ -173,9 +173,22 @@ public class MPTSpawner : MonoBehaviour
     }
 
     private void PickSequence()
-    {
-        currentRotation = Random.Range(0, 4);
-        float totalWeightsCopy = Random.Range(0.0f, totalWeights);
+	{
+		currentRotation = MPTInteractiveTutoManager.Instance.GetRotation();
+		if (currentRotation == -1)
+		{
+			currentRotation = Random.Range(0, 4);
+		}
+
+		string nextShape = MPTInteractiveTutoManager.Instance.GetSpawnableShape();
+		if (nextShape != "")
+		{
+			currentSequence = new List<string>();
+			currentSequence.Add(nextShape);
+			return;
+		}
+
+		float totalWeightsCopy = Random.Range(0.0f, totalWeights);
         
         foreach (string sequence in _sequences.Keys)
         {
@@ -260,6 +273,7 @@ public class MPTSpawner : MonoBehaviour
                 }
                 
                 GameObject go = Instantiate(selectedGO);
+				go.name = go.name.Replace("(Clone)", "");
                 go.transform.SetParent(spawnPoints[spawnId].transform);
                 go.transform.localPosition = new Vector3(0.0f, 0.0f, 0.0f);
                 go.GetComponent<MPTShape>().Init();

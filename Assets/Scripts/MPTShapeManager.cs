@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections.Generic;
 
 public class MPTShapeManager : MonoBehaviour
@@ -12,9 +13,12 @@ public class MPTShapeManager : MonoBehaviour
         }
     }
 
-    public List<MPTShape> listOfShapes;
+	public List<MPTShape> listOfShapes;
 
-    void Start()
+	public event Action<MPTShape> shapeRegistered;
+	public event Action<MPTShape> shapeUnregistered;
+
+	void Start()
     {
         instance = this;
         listOfShapes = new List<MPTShape>();
@@ -22,11 +26,19 @@ public class MPTShapeManager : MonoBehaviour
 
     public void RegisterShape(MPTShape newShape)
     {
+		if (shapeRegistered != null)
+		{
+			shapeRegistered(newShape);
+		}
         listOfShapes.Add(newShape);
     }
 
     public void UnregisterShape(MPTShape newShape)
-    {
-        listOfShapes.Remove(newShape);
+	{
+		if (shapeUnregistered != null)
+		{
+			shapeUnregistered(newShape);
+		}
+		listOfShapes.Remove(newShape);
     }
 }

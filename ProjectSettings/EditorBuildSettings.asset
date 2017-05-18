@@ -7,5 +7,10 @@ EditorBuildSettings:
   m_Scenes:
   - enabled: 1
     path: Assets/Scenes/SplashScene.unity
+    guid: e86303d50de71874887eca6678dcfe96
   - enabled: 1
     path: Assets/Scenes/MainScene.unity
+    guid: b62d89ba17703ac4baee06db6c42b85e
+  - enabled: 1
+    path: Assets/Scenes/MainSceneNewTuto.unity
+    guid: 38814f786c5d2034a9e89ea237a45886
