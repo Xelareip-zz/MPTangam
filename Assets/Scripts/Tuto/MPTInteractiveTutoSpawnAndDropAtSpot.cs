@@ -8,7 +8,6 @@ public class MPTInteractiveTutoSpawnAndDropAtSpot : MPTInteractiveTutoBase
 	public string shapeType;
 	public int rotation;
 	public GameObject targetShape;
-	public MPTArrowTarget arrowTarget;
 
 	public override void Begin()
 	{
@@ -39,7 +38,6 @@ public class MPTInteractiveTutoSpawnAndDropAtSpot : MPTInteractiveTutoBase
 		{
 			targetShape = shape.gameObject;
 			shape.shapeTryDrop += ShapeTriedDrop;
-			arrowTarget.targetPoint = targetShape;
 		}
 	}
 
@@ -54,26 +52,24 @@ public class MPTInteractiveTutoSpawnAndDropAtSpot : MPTInteractiveTutoBase
 		if (shape != null && shape.canDrop)
 		{
 			End();
-			if (nextTuto != null)
-			{
-				nextTuto.Begin();
-			}
-			else
-			{
-				MPTInteractiveTutoManager.Instance.currentTuto = null;
-			}
 		}
 	}
 
 	public override bool BlockadeDragPiece(MPTShape shape)
 	{
-		return shape.gameObject == targetShape;
+		if (targetShape != null)
+		{
+			return shape.gameObject == targetShape;
+		}
 		return shape.name == shapeType && shape.hasBeenDropped == false;
 	}
 
 	public override bool BlockadeDropAtSpot(MPTShape shape, Vector2 spot)
 	{
-		return shape.gameObject == targetShape && spot == droppableSpot;
+		if (targetShape != null)
+		{
+			return shape.gameObject == targetShape && spot == droppableSpot;
+		}
 		return shape.name == shapeType && spot == droppableSpot;
 	}
 
