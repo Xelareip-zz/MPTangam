@@ -7,13 +7,24 @@ public class MPTInteractiveTutoBase : MonoBehaviour
 	public MPTInteractiveTutoBase nextTuto;
 	public string finishTutorial;
 
+	public List<GameObject> linkedUI = new List<GameObject>();
+
 	public virtual void Begin()
 	{
 		MPTInteractiveTutoManager.Instance.currentTuto = this;
+
+		foreach (GameObject uiObject in linkedUI)
+		{
+			uiObject.SetActive(true);
+		}
 	}
 
 	public virtual void End()
 	{
+		foreach (GameObject uiObject in linkedUI)
+		{
+			uiObject.SetActive(false);
+		}
 		if (finishTutorial != "")
 		{
 			MPTPlayer.Instance.SetTutoDone(true);
