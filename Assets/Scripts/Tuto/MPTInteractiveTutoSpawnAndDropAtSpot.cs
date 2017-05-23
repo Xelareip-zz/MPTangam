@@ -5,8 +5,6 @@ using UnityEngine;
 public class MPTInteractiveTutoSpawnAndDropAtSpot : MPTInteractiveTutoBase
 {
 	public Vector2 droppableSpot;
-	public string shapeType;
-	public int rotation;
 	public GameObject targetShape;
 
 	public override void Begin()
@@ -32,16 +30,16 @@ public class MPTInteractiveTutoSpawnAndDropAtSpot : MPTInteractiveTutoBase
 		base.End();
 	}
 
-	public void ShapeRegistered(MPTShape shape)
+	public virtual void ShapeRegistered(MPTShape shape)
 	{
-		if (targetShape == null && shape.name == shapeType)
+		if (targetShape == null && shape.name == spawnableShape)
 		{
 			targetShape = shape.gameObject;
 			shape.shapeTryDrop += ShapeTriedDrop;
 		}
 	}
 
-	public void ShapeUnregistered(MPTShape shape)
+	public virtual void ShapeUnregistered(MPTShape shape)
 	{
 		shape.shapeTryDrop -= ShapeTriedDrop;
 	}
@@ -61,7 +59,7 @@ public class MPTInteractiveTutoSpawnAndDropAtSpot : MPTInteractiveTutoBase
 		{
 			return shape.gameObject == targetShape;
 		}
-		return shape.name == shapeType && shape.hasBeenDropped == false;
+		return shape.name == spawnableShape && shape.hasBeenDropped == false;
 	}
 
 	public override bool BlockadeDropAtSpot(MPTShape shape, Vector2 spot)
@@ -70,16 +68,11 @@ public class MPTInteractiveTutoSpawnAndDropAtSpot : MPTInteractiveTutoBase
 		{
 			return shape.gameObject == targetShape && spot == droppableSpot;
 		}
-		return shape.name == shapeType && spot == droppableSpot;
+		return shape.name == spawnableShape && spot == droppableSpot;
 	}
 
 	public override int GetRotation()
 	{
 		return rotation;
-	}
-
-	public override string GetSpawnableShape()
-	{
-		return shapeType;
 	}
 }

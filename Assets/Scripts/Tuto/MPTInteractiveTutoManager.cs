@@ -57,12 +57,19 @@ public class MPTInteractiveTutoManager : MonoBehaviour
 		if (currentTuto)
 			return currentTuto.GetRotation();
 		return -1;
-    }
+	}
 
 	public virtual string GetSpawnableShape()
 	{
 		if (currentTuto)
 			return currentTuto.GetSpawnableShape();
+		return "";
+	}
+
+	public virtual string GetKeepableShape()
+	{
+		if (currentTuto)
+			return currentTuto.GetKeepableShape();
 		return "";
 	}
 }

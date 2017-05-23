@@ -191,31 +191,56 @@ public class MPTGrid : MonoBehaviour
         GameObject spawnTextMultiplier = Instantiate<GameObject>(spawnText);
         spawnTextMultiplier.GetComponent<TextMesh>().text = "x " + (highestMultiplier + 2);
         spawnTextMultiplier.transform.position = MPTSpawner.Instance.spawnedShapes[multipliedShape].transform.position + Vector3.back;*/
+		if (MPTInteractiveTutoManager.Instance.GetKeepableShape() != "")
+		{
+			foreach (MPTShape currentShape in finalSquare)
+			{
+				bool shouldKeepThisShape = currentShape.name == MPTInteractiveTutoManager.Instance.GetKeepableShape();
+                currentShape.Consume(multiplier, shouldKeepThisShape);
 
-        foreach (MPTShape currentShape in finalSquare)
-        {
-            currentShape.Consume(multiplier, shapeToKeep == 0);
-            
-            if (shapeToKeep == 0)
-            {
-                MPTSpawner.Instance.SetNextShape(currentShape);
-                currentShape.SetMultiplier(highestMultiplier + 1);
-                currentShape.points = multiplier;
-                currentShape.UpdateColor();
-                /*GameObject spawnTextMultiplier = Instantiate<GameObject>(spawnText);
-                spawnTextMultiplier.GetComponent<TextMesh>().text = "x " + (highestMultiplier + 2);
-                spawnTextMultiplier.transform.parent = MPTGrid.Instance.transform;
-                spawnTextMultiplier.transform.position = currentShape.transform.position + Vector3.back;*/
-            }
-            else
-            {
-                MPTSquareDoneAnimation anim = currentShape.gameObject.AddComponent<MPTSquareDoneAnimation>();
-                anim.targetPosition = finalSquare[shapeToKeepPosition].transform.position + Vector3.forward;
-                anim.targetScale = Vector3.zero;
-                anim.animationTime = 1.0f;
-            }
-            --shapeToKeep;
-        }
+				if (shouldKeepThisShape)
+				{
+					MPTSpawner.Instance.SetNextShape(currentShape);
+					currentShape.SetMultiplier(highestMultiplier + 1);
+					currentShape.points = multiplier;
+					currentShape.UpdateColor();
+				}
+				else
+				{
+					MPTSquareDoneAnimation anim = currentShape.gameObject.AddComponent<MPTSquareDoneAnimation>();
+					anim.targetPosition = finalSquare[shapeToKeepPosition].transform.position + Vector3.forward;
+					anim.targetScale = Vector3.zero;
+					anim.animationTime = 1.0f;
+				}
+				--shapeToKeep;
+			}
+
+		}
+		else
+		{
+			foreach (MPTShape currentShape in finalSquare)
+			{
+				bool shouldKeepThisShape = shapeToKeep == 0;
+                currentShape.Consume(multiplier, shouldKeepThisShape);
+
+				if (shouldKeepThisShape)
+				{
+					MPTSpawner.Instance.SetNextShape(currentShape);
+					currentShape.SetMultiplier(highestMultiplier + 1);
+					currentShape.points = multiplier;
+					currentShape.UpdateColor();
+				}
+				else
+				{
+					MPTSquareDoneAnimation anim = currentShape.gameObject.AddComponent<MPTSquareDoneAnimation>();
+					anim.targetPosition = finalSquare[shapeToKeepPosition].transform.position + Vector3.forward;
+					anim.targetScale = Vector3.zero;
+					anim.animationTime = 1.0f;
+				}
+				--shapeToKeep;
+			}
+
+		}
 
         int multiplierColorId = Mathf.Clamp(multiplier - 1, 0, MPTGameManager.Instance.multiplierColors.Count - 1);
 

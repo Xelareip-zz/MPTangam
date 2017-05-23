@@ -10,4 +10,25 @@ public class MPTInteractiveTutoSpawnPointAndDropAtSpot : MPTInteractiveTutoSpawn
 		base.Begin();
 		targetShape = MPTSpawner.Instance.spawnedShapes[dropPointId];
     }
+
+	void Update()
+	{
+		if (targetShape == null)
+		{
+			targetShape = MPTSpawner.Instance.spawnedShapes[dropPointId];
+		}
+	}
+
+	public override void ShapeRegistered(MPTShape shape)
+	{
+		if (targetShape == null && shape.name == spawnableShape)
+		{
+			shape.shapeTryDrop += ShapeTriedDrop;
+		}
+	}
+
+	public override void ShapeUnregistered(MPTShape shape)
+	{
+		shape.shapeTryDrop -= ShapeTriedDrop;
+	}
 }

@@ -7,11 +7,14 @@ public class MPTInteractiveTutoBase : MonoBehaviour
 	public MPTInteractiveTutoBase nextTuto;
 	public string finishTutorial;
 
+	public string spawnableShape;
+	public string keepableShape;
+	public int rotation;
+
 	public List<GameObject> linkedUI = new List<GameObject>();
 
 	public virtual void Begin()
 	{
-		Debug.Log("Begin " + name);
 		gameObject.SetActive(true);
 		MPTInteractiveTutoManager.Instance.currentTuto = this;
 
@@ -54,11 +57,16 @@ public class MPTInteractiveTutoBase : MonoBehaviour
 
 	public virtual int GetRotation()
 	{
-		return -1;
+		return rotation;
 	}
 
 	public virtual string GetSpawnableShape()
 	{
-		return "";
+		return spawnableShape;
+	}
+
+	public virtual string GetKeepableShape()
+	{
+		return keepableShape;
 	}
 }

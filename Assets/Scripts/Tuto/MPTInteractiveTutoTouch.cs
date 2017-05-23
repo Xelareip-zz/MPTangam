@@ -29,14 +29,4 @@ public class MPTInteractiveTutoTouch : MPTInteractiveTutoBase
 	{
 		return false;
 	}
-
-	public override int GetRotation()
-	{
-		return -1;
-	}
-
-	public override string GetSpawnableShape()
-	{
-		return "";
-	}
 }
