@@ -4571,7 +4571,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nextTuto: {fileID: 0}
-  finishTutorial: 
+  finishTutorial: srhrthrt
   spawnableShape: 
   keepableShape: ParallelogramSENW
   rotation: 0
