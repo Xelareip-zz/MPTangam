@@ -72,4 +72,11 @@ public class MPTInteractiveTutoManager : MonoBehaviour
 			return currentTuto.GetKeepableShape();
 		return "";
 	}
+
+	public virtual bool GetCanRestart()
+	{
+		if (currentTuto)
+			return currentTuto.GetCanRestart();
+		return true;
+	}
 }

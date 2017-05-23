@@ -15,6 +15,7 @@ public class MPTInteractiveTutoBase : MonoBehaviour
 
 	public virtual void Begin()
 	{
+		//Debug.Log("Tuto started: " + name + " stack: " + Environment.StackTrace);
 		gameObject.SetActive(true);
 		MPTInteractiveTutoManager.Instance.currentTuto = this;
 
@@ -43,6 +44,7 @@ public class MPTInteractiveTutoBase : MonoBehaviour
 		{
 			MPTInteractiveTutoManager.Instance.currentTuto = null;
 		}
+		//Debug.Log("Tuto ended: " + name + " stack: " + Environment.StackTrace);
 	}
 
 	public virtual bool BlockadeDragPiece(MPTShape shape)
@@ -68,5 +70,10 @@ public class MPTInteractiveTutoBase : MonoBehaviour
 	public virtual string GetKeepableShape()
 	{
 		return keepableShape;
+	}
+
+	public virtual bool GetCanRestart()
+	{
+		return false;
 	}
 }

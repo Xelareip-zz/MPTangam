@@ -209,7 +209,7 @@ public class MPTGameManager : MonoBehaviour
 
     public void ShowConfirmRestart()
     {
-		if (isPaused)
+		if (isPaused || MPTInteractiveTutoManager.Instance.GetCanRestart() == false)
 		{
 			return;
 		}

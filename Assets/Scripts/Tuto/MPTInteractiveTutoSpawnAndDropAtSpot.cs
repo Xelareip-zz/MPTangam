@@ -6,6 +6,7 @@ public class MPTInteractiveTutoSpawnAndDropAtSpot : MPTInteractiveTutoBase
 {
 	public Vector2 droppableSpot;
 	public GameObject targetShape;
+	public List<MPTShape> shapesSubscribed = new List<MPTShape>();
 
 	public override void Begin()
 	{
@@ -14,15 +15,19 @@ public class MPTInteractiveTutoSpawnAndDropAtSpot : MPTInteractiveTutoBase
 		MPTShapeManager.Instance.shapeUnregistered += ShapeUnregistered;
 		foreach (MPTShape shape in MPTShapeManager.Instance.listOfShapes)
 		{
+			shapesSubscribed.Add(shape);
 			shape.shapeTryDrop += ShapeTriedDrop;
 		}
     }
 
 	public override void End()
 	{
-		foreach (MPTShape shape in MPTShapeManager.Instance.listOfShapes)
+		foreach (MPTShape shape in shapesSubscribed)
 		{
-			shape.shapeTryDrop -= ShapeTriedDrop;
+			if (shape != null)
+			{
+				shape.shapeTryDrop -= ShapeTriedDrop;
+			}
 		}
 		MPTShapeManager.Instance.shapeRegistered -= ShapeRegistered;
 		MPTShapeManager.Instance.shapeUnregistered -= ShapeUnregistered;
@@ -35,6 +40,7 @@ public class MPTInteractiveTutoSpawnAndDropAtSpot : MPTInteractiveTutoBase
 		if (targetShape == null && shape.name == spawnableShape)
 		{
 			targetShape = shape.gameObject;
+			shapesSubscribed.Add(shape);
 			shape.shapeTryDrop += ShapeTriedDrop;
 		}
 	}
