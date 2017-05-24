@@ -223,7 +223,7 @@ public class MPTSpawner : MonoBehaviour
 		}
     }
 
-	public void UpdateCantDropText()
+	public bool UpdateCantDropText()
 	{
 		bool spaceFound = false;
 		for (int shapeId = 0; shapeId < spawnedShapes.Length; ++shapeId)
@@ -234,6 +234,7 @@ public class MPTSpawner : MonoBehaviour
 			}
 		}
 		cantDropText.SetActive(!spaceFound);
+		return spaceFound;
 	}
 
     public void SpawnNew()

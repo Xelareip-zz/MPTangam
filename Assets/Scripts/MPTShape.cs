@@ -172,6 +172,14 @@ public class MPTShape : MonoBehaviour
 		{
 			canDrop = false;
 		}
+		if (canDrop)
+		{
+			MPTSpawner.Instance.ghostRenderer.transform.position = new Vector3(closestPoint.x, closestPoint.y, transform.position.z);
+		}
+		else
+		{
+			MPTSpawner.Instance.ghostRenderer.transform.position = transform.position;
+		}
 		/*
 		canDrop = true;
         foreach (MPTShape current in MPTShapeManager.Instance.listOfShapes)
@@ -190,7 +198,7 @@ public class MPTShape : MonoBehaviour
             }
         }
 		Debug.Log("Can drop " + canDrop);*/
-    }
+	}
 
     public void AfterDrag()
 	{
@@ -233,14 +241,6 @@ public class MPTShape : MonoBehaviour
 				minDistance = currentDistance;
 				closestPoint = droppableSpace;
 			}
-		}
-		if (canDrop)
-		{
-			MPTSpawner.Instance.ghostRenderer.transform.position = new Vector3(closestPoint.x, closestPoint.y, transform.position.z);
-		}
-		else
-		{
-			MPTSpawner.Instance.ghostRenderer.transform.position = transform.position;
 		}
     }
 
@@ -343,8 +343,13 @@ public class MPTShape : MonoBehaviour
 			shapeTryDrop(this);
 		}
 		transform.position = MPTSpawner.Instance.ghostRenderer.transform.position + new Vector3(0, 0, 1);
+		bool shouldLowerScore = canDrop;
 		if (/*isOnGrid && isFullyInGrid && */canDrop)
         {
+			if (draggable.initialPos == transform.position)
+			{
+				shouldLowerScore = false;
+            }
             //Destroy(draggable);
             //draggable.enabled = false;
             draggable.Reinit();
@@ -376,7 +381,17 @@ public class MPTShape : MonoBehaviour
 		{
 			go.GetComponent<MPTShape>().FindDropSpaces();
 		}
-		MPTSpawner.Instance.UpdateCantDropText();
+		if (shouldLowerScore)
+		{
+			if (MPTSpawner.Instance.UpdateCantDropText())
+			{
+				MPTGameManager.Instance.ResetDropsLeft();
+			}
+			else
+			{
+				MPTGameManager.Instance.LowerDropsLeft();
+			}
+		}
 	}
 
     public void Consume(int currentMultiplier, bool keepShape)

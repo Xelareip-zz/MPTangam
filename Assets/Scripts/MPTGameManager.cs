@@ -16,6 +16,8 @@ public class MPTGameManager : MonoBehaviour
         }
     }
 
+	public Text dropsLeftText;
+
     public GameObject fancyScorePrefab;
     public List<GameObject> amazingPrefabs;
 
@@ -41,6 +43,9 @@ public class MPTGameManager : MonoBehaviour
 
     public Color cantDropColor;
     public List<Color> multiplierColors;
+
+	public int maxDropsLeft;
+	public int dropsLeft;
 
     void Start()
     {
@@ -261,6 +266,26 @@ public class MPTGameManager : MonoBehaviour
         string body = MyEscapeURL("");
         Application.OpenURL("mailto:" + email + "?subject=" + subject + "&body=" + body);
     }
+
+	public void LowerDropsLeft()
+	{
+		--dropsLeft;
+		if (MPTInteractiveTutoManager.Instance.currentTuto == null)
+		{
+			dropsLeftText.text = "" + dropsLeft + " drops left";
+		}
+		if (dropsLeft <= 0)
+		{
+			dropsLeftText.text = "";
+			Loose();
+		}
+	}
+
+	public void ResetDropsLeft()
+	{
+		dropsLeftText.text = "";
+		dropsLeft = maxDropsLeft;
+	}
 
     string MyEscapeURL (string url)
     {
