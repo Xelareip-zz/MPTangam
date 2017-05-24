@@ -47,7 +47,10 @@ public class MPTGameManager : MonoBehaviour
 	public int maxDropsLeft;
 	public int dropsLeft;
 
-    void Start()
+	public Coroutine checkSpotsCoroutine;
+	public GameObject endCloseWarning;
+
+	void Start()
     {
         instance = this;
         score = 0;
@@ -267,10 +270,16 @@ public class MPTGameManager : MonoBehaviour
         Application.OpenURL("mailto:" + email + "?subject=" + subject + "&body=" + body);
     }
 
+	public void UpdateAlmostEnd(bool active)
+	{
+		endCloseWarning.SetActive(active);
+	}
+
 	public void LowerDropsLeft()
 	{
 		--dropsLeft;
-		if (MPTInteractiveTutoManager.Instance.currentTuto == null)
+
+        if (MPTInteractiveTutoManager.Instance.currentTuto == null)
 		{
 			dropsLeftText.text = "" + dropsLeft + " drops left";
 		}

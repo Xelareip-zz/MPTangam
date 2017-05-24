@@ -381,6 +381,29 @@ public class MPTShape : MonoBehaviour
 		{
 			go.GetComponent<MPTShape>().FindDropSpaces();
 		}
+
+		List<Vector2> totalDroppableSpaces = new List<Vector2>();
+		int totalDroppableShapes = 0;
+        foreach (GameObject go in MPTSpawner.Instance.spawnedShapes)
+		{
+			bool locallyFound = false;
+			List<Vector2> droppableSpaces = go.GetComponent<MPTShape>().droppableSpaces;
+			foreach (Vector2 space in droppableSpaces)
+			{
+				if (totalDroppableSpaces.Contains(space) == false)
+				{
+					locallyFound = true;
+					totalDroppableSpaces.Add(space);
+				}
+			}
+			if (locallyFound)
+			{
+				++totalDroppableShapes;
+			}
+		}
+
+		MPTGameManager.Instance.UpdateAlmostEnd(totalDroppableSpaces.Count < 5 && totalDroppableShapes >= 2);
+
 		if (shouldLowerScore)
 		{
 			if (MPTSpawner.Instance.UpdateCantDropText())
