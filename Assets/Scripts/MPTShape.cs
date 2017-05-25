@@ -390,9 +390,9 @@ public class MPTShape : MonoBehaviour
 			List<Vector2> droppableSpaces = go.GetComponent<MPTShape>().droppableSpaces;
 			foreach (Vector2 space in droppableSpaces)
 			{
+				locallyFound = true;
 				if (totalDroppableSpaces.Contains(space) == false)
 				{
-					locallyFound = true;
 					totalDroppableSpaces.Add(space);
 				}
 			}
@@ -402,7 +402,7 @@ public class MPTShape : MonoBehaviour
 			}
 		}
 
-		MPTGameManager.Instance.UpdateAlmostEnd(totalDroppableSpaces.Count < 5 && totalDroppableShapes >= 2);
+		MPTGameManager.Instance.UpdateAlmostEnd(totalDroppableSpaces.Count < 5 || totalDroppableShapes < 2);
 
 		if (shouldLowerScore)
 		{
