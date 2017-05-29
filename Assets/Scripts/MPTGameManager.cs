@@ -61,17 +61,22 @@ public class MPTGameManager : MonoBehaviour
     public void StartGame()
     {
         isPaused = false;
-        if (MPTPlayer.Instance.GetTutoDone() == false)
+		Destroy(startUI);
+		if (MPTPlayer.Instance.GetTutoDone() == false)
         {
 			MPTInteractiveTutoManager.Instance.StartTuto("Tutorial0");
-            //ShowTuto();
-        }
-        MPTPlayer.Instance.NewGameStarted();
-        Destroy(startUI);
-        MPTSpawner.Instance.SpawnNew();
-        MPTSpawner.Instance.SpawnNew();
-        MPTSpawner.Instance.SpawnNew();
-    }
+		}
+		else if (MPTQuickSave.Instance.HasSave())
+		{
+			MPTQuickSave.Instance.QuickLoad();
+			return;
+		}
+
+		MPTPlayer.Instance.NewGameStarted();
+		MPTSpawner.Instance.SpawnNew();
+		MPTSpawner.Instance.SpawnNew();
+		MPTSpawner.Instance.SpawnNew();
+	}
     
     public void Loose()
     {
@@ -90,6 +95,7 @@ public class MPTGameManager : MonoBehaviour
             }
             --shapeId;
         }
+		MPTQuickSave.Instance.Erase();
         StartCoroutine(ShowLooseScreenIn(4.0f));
     }
 

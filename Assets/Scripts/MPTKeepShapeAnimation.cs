@@ -40,7 +40,9 @@ public class MPTKeepShapeAnimation : MonoBehaviour
     {
         if ((Time.time - startTime) > animationTime)
         {
-			Destroy(this);
+			transform.position = targetPosition;
+			transform.localScale = targetScale;
+            Destroy(this);
             return;
         }
         transform.position = initialPosition + (targetPosition - initialPosition) * (Time.time - startTime) / animationTime;

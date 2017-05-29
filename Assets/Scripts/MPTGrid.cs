@@ -70,7 +70,12 @@ public class MPTGrid : MonoBehaviour
 
         shape.miniTrianglesCount = miniTrianglesCount;
 
-        List<List<MPTShape>> squares = new List<List<MPTShape>>();
+		if (MPTQuickSave.Instance.IsLoading)
+		{
+			return;
+		}
+
+		List<List<MPTShape>> squares = new List<List<MPTShape>>();
 
         for (int xNW = 0; xNW < width; ++xNW)
         {
@@ -166,7 +171,7 @@ public class MPTGrid : MonoBehaviour
         }
         else
         {
-            MPTSpawner.Instance.SpawnNew();
+			MPTSpawner.Instance.SpawnNew();
             return;
         }
 

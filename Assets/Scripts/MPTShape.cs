@@ -39,14 +39,18 @@ public class MPTShape : MonoBehaviour
 
     public Vector3 initialScale;
 
-	public bool isDirtyDroppableSpaces;
+	public bool isDirtyDroppableSpaces = true;
 	public List<Vector2> droppableSpaces = new List<Vector2>();
 	public event Action<MPTShape> shapeTryDrop;
 
-    void Start()
-    {
-        draggable = GetComponent<MPTDraggable>();
-        draggable.beenDragged += AfterDrag;
+	void Awake()
+	{
+		draggable = GetComponent<MPTDraggable>();
+	}
+
+	void Start()
+	{
+		draggable.beenDragged += AfterDrag;
         draggable.beenDropped += AfterDrop;
         /*
         mainSprite = GetComponent<SpriteRenderer>().sprite;
@@ -342,7 +346,10 @@ public class MPTShape : MonoBehaviour
 		{
 			shapeTryDrop(this);
 		}
-		transform.position = MPTSpawner.Instance.ghostRenderer.transform.position + new Vector3(0, 0, 1);
+		if (MPTQuickSave.Instance.IsLoading == false)
+		{
+			transform.position = MPTSpawner.Instance.ghostRenderer.transform.position + new Vector3(0, 0, 1);
+		}
 		bool shouldLowerScore = canDrop;
 		if (/*isOnGrid && isFullyInGrid && */canDrop)
         {
@@ -357,7 +364,7 @@ public class MPTShape : MonoBehaviour
             hasBeenDropped = true;
             MPTSpawner.Instance.ShapeDropped(this.gameObject);
             //MPTSpawner.Instance.SpawnNew();
-            MPTGrid.Instance.ShapeDropped(this);
+			MPTGrid.Instance.ShapeDropped(this);
         }
         else
         {
@@ -377,32 +384,8 @@ public class MPTShape : MonoBehaviour
 		}
 
 		MPTSpawner.Instance.ghostRenderer.transform.position = new Vector2(-1000, -1000);
-		foreach (GameObject go in MPTSpawner.Instance.spawnedShapes)
-		{
-			go.GetComponent<MPTShape>().FindDropSpaces();
-		}
 
-		List<Vector2> totalDroppableSpaces = new List<Vector2>();
-		int totalDroppableShapes = 0;
-        foreach (GameObject go in MPTSpawner.Instance.spawnedShapes)
-		{
-			bool locallyFound = false;
-			List<Vector2> droppableSpaces = go.GetComponent<MPTShape>().droppableSpaces;
-			foreach (Vector2 space in droppableSpaces)
-			{
-				locallyFound = true;
-				if (totalDroppableSpaces.Contains(space) == false)
-				{
-					totalDroppableSpaces.Add(space);
-				}
-			}
-			if (locallyFound)
-			{
-				++totalDroppableShapes;
-			}
-		}
-
-		MPTGameManager.Instance.UpdateAlmostEnd(totalDroppableSpaces.Count < 5 || totalDroppableShapes < 2);
+		MPTSpawner.Instance.UpdateDropWarning();
 
 		if (shouldLowerScore)
 		{

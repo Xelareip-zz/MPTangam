@@ -118,7 +118,7 @@ PlayerSettings:
     16:10: 1
     16:9: 1
     Others: 1
-  bundleVersion: 1.0.2
+  bundleVersion: 0.0.2
   preloadedAssets: []
   metroInputSource: 0
   m_HolographicPauseOnTrackingLoss: 1
@@ -136,7 +136,7 @@ PlayerSettings:
   protectGraphicsMemory: 0
   useHDRDisplay: 0
   applicationIdentifier:
-    Android: com.thestonegoatgames.edges
+    Android: com.thestonegoatgames.test
     Standalone: unity.TheStoneGoatGames.Edges
     Tizen: com.thestonegoatgames.edges
     iOS: com.thestonegoatgames.edges
@@ -216,8 +216,8 @@ PlayerSettings:
   AndroidTargetDevice: 0
   AndroidSplashScreenScale: 0
   androidSplashScreen: {fileID: 0}
-  AndroidKeystoreName: 
-  AndroidKeyaliasName: 
+  AndroidKeystoreName: E:/Programming/Android/Keystore/TSGKey0.keystore
+  AndroidKeyaliasName: release tsg
   AndroidTVCompatibility: 0
   AndroidIsGame: 0
   androidEnableBanner: 1

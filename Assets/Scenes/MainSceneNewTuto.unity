@@ -1264,7 +1264,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: ' Now that shit here'
+  m_Text: ' Now that here'
 --- !u!222 &193090258
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2219,7 +2219,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: ' Now that shit here'
+  m_Text: ' Now that here'
 --- !u!222 &378274937
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3638,7 +3638,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Drag that shit here
+  m_Text: Drag that here
 --- !u!222 &681714555
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3714,7 +3714,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Drag that shit here
+  m_Text: Drag that here
 --- !u!222 &687085350
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3732,6 +3732,7 @@ GameObject:
   - component: {fileID: 704424567}
   - component: {fileID: 704424569}
   - component: {fileID: 704424570}
+  - component: {fileID: 704424571}
   m_Layer: 0
   m_Name: Spawner
   m_TagString: Untagged
@@ -3885,6 +3886,18 @@ MonoBehaviour:
   maxDropsLeft: 4
   dropsLeft: 0
   endCloseWarning: {fileID: 1680529810}
+--- !u!114 &704424571
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 704424566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f31be77eaab1044cb38deb8e28ed75b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isDirty: 0
 --- !u!1 &711881757
 GameObject:
   m_ObjectHideFlags: 0
@@ -6411,7 +6424,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: ' And this shit there!'
+  m_Text: ' And this there!'
 --- !u!222 &1201831100
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -8691,7 +8704,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: ' And this shit there!'
+  m_Text: ' And this there!'
 --- !u!222 &1676088277
 CanvasRenderer:
   m_ObjectHideFlags: 0

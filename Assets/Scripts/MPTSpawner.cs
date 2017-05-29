@@ -17,7 +17,7 @@ public class MPTSpawner : MonoBehaviour
     public GameObject[] spawnedShapes = new GameObject[3];
 
     public List<GameObject> spawnables;
-    private Dictionary<string, GameObject> spawnablesDict;
+    public Dictionary<string, GameObject> spawnablesDict;
     private Dictionary<string, Dictionary<int, float>> _weights;
     public TextAsset weightsTextAsset;
     public TextAsset sequencesTextAsset;
@@ -217,11 +217,49 @@ public class MPTSpawner : MonoBehaviour
 			if (spawnedShapes[i] == null)
 			{
 				currentSequence.RemoveAt(newSpawnRand);
-				CreateShape(spawnablesDict[shapeName]);
+				CreateShapeInQueue(spawnablesDict[shapeName]);
 				break;
 			}
 		}
     }
+
+	public void UpdateDropWarning()
+	{
+		foreach (GameObject go in spawnedShapes)
+		{
+			if (go != null)
+			{
+				go.GetComponent<MPTShape>().FindDropSpaces();
+			}
+		}
+
+		List<Vector2> totalDroppableSpaces = new List<Vector2>();
+		int totalDroppableShapes = 0;
+		foreach (GameObject go in spawnedShapes)
+		{
+			if (go == null)
+			{
+				continue;
+			}
+
+			bool locallyFound = false;
+			List<Vector2> droppableSpaces = go.GetComponent<MPTShape>().droppableSpaces;
+			foreach (Vector2 space in droppableSpaces)
+			{
+				locallyFound = true;
+				if (totalDroppableSpaces.Contains(space) == false)
+				{
+					totalDroppableSpaces.Add(space);
+				}
+			}
+			if (locallyFound)
+			{
+				++totalDroppableShapes;
+			}
+		}
+
+		MPTGameManager.Instance.UpdateAlmostEnd(totalDroppableSpaces.Count < 5 || totalDroppableShapes < 2);
+	}
 
 	public bool UpdateCantDropText()
 	{
@@ -262,7 +300,7 @@ public class MPTSpawner : MonoBehaviour
         CreateShape(selectedGO);*/
     }
 
-    private void CreateShapeInQueue(GameObject selectedGO)
+    public GameObject CreateShapeInQueue(GameObject selectedGO)
     {
         for (int spawnId = 0; spawnId < spawnedShapes.Length; ++spawnId)
         {
@@ -281,9 +319,10 @@ public class MPTSpawner : MonoBehaviour
                 go.GetComponent<MPTDraggable>().additionalColliders.Add(spawnPoints[spawnId].GetComponent<Collider2D>());
                 spawnedShapes[spawnId] = go;
                 //nextShape.GetComponent<MPTDraggable>().enabled = false;
-                return;
+                return go;
             }
         }
+		return null;
     }
 
     public void ShapeDropped(GameObject shape)
@@ -297,7 +336,7 @@ public class MPTSpawner : MonoBehaviour
         }
     }
 
-    private void CreateShape(GameObject selectedGO)
+    public void CreateShape(GameObject selectedGO)
     {
         CreateShapeInQueue(selectedGO);
         return;
