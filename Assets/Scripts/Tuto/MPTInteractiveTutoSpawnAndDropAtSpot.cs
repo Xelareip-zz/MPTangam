@@ -22,6 +22,10 @@ public class MPTInteractiveTutoSpawnAndDropAtSpot : MPTInteractiveTutoBase
 
 	public override void End()
 	{
+		if (gameObject.activeInHierarchy == false)
+		{
+			return;
+		}
 		foreach (MPTShape shape in shapesSubscribed)
 		{
 			if (shape != null)
