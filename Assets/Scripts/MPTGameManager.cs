@@ -62,7 +62,9 @@ public class MPTGameManager : MonoBehaviour
     {
         isPaused = false;
 		Destroy(startUI);
-		if (MPTPlayer.Instance.GetTutoDone() == false)
+		UpdateAlmostEnd(false);
+		ResetDropsLeft();
+        if (MPTPlayer.Instance.GetTutoDone() == false)
         {
 			MPTInteractiveTutoManager.Instance.StartTuto("Tutorial0");
 		}
